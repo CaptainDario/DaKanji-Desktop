@@ -41,6 +41,48 @@ ApplicationWindow {
             fillMode: Image.PreserveAspectFit
         }
 
+        //Canvas clear button
+        Button{
+            id: "button_clear"
+
+            x: canvas.width + canvas.x - mainWindow.menu_button_size
+            y: canvas.y - mainWindow.menu_button_size 
+
+            width : mainWindow.menu_button_size
+            height: mainWindow.menu_button_size
+
+            padding: 10
+
+            icon.source: "file:///E:/projects/kanji-recognizer/img/clear.png"
+
+            onClicked: {
+               canvas.points = new Array(0)
+               canvas.getContext("2d").reset()
+               canvas.requestPaint() 
+            }
+        }        
+        //Undo last stroke button
+        Button{
+            id: "button_undo"
+
+            x: canvas.width + canvas.x - 2*mainWindow.menu_button_size
+            y: canvas.y - mainWindow.menu_button_size 
+
+            width : mainWindow.menu_button_size
+            height: mainWindow.menu_button_size
+
+            padding: 10
+
+            icon.source: "file:///E:/projects/kanji-recognizer/img/undo.png"
+
+            onClicked: {
+                canvas.undoLastStroke = true
+                canvas.points.pop()
+                canvas.getContext("2d").reset()
+                canvas.requestPaint() 
+            }
+        }
+
         //Kanji drawing canvas
         Canvas {
             
