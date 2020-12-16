@@ -41,4 +41,44 @@ ApplicationWindow {
             fillMode: Image.PreserveAspectFit
         }
 
+        //Kanji drawing canvas
+        Canvas {
+            
+            id: "canvas"
+            
+            width : drawing_aid.width > drawing_aid.height ? drawing_aid.height : drawing_aid.width
+            height: drawing_aid.width > drawing_aid.height ? drawing_aid.height : drawing_aid.width
+
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height / 3 - height / 2
+
+            property real lastX
+            property real lastY
+
+            onPaint: {
+                var ctx = getContext('2d')
+                ctx.lineWidth = 1.5
+                ctx.strokeStyle = canvas.color
+                ctx.beginPath()
+                ctx.moveTo(lastX, lastY)
+                lastX = area.mouseX
+                lastY = area.mouseY
+                ctx.lineTo(lastX, lastY)
+                ctx.stroke()
+            }
+
+            MouseArea {
+                id: area
+                anchors.fill: parent
+
+                onPressed: {
+                    canvas.lastX = mouseX
+                    canvas.lastY = mouseY
+                }
+
+                onPositionChanged: {
+                    canvas.requestPaint()
+                } 
+            }
+        }
 }
