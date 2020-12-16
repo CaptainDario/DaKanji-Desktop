@@ -94,19 +94,53 @@ ApplicationWindow {
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 3 - height / 2
 
-            property real lastX
-            property real lastY
+            property var color: "black"
+
+            // all points which have been drawn
+            // [[all points of Line_0], [all points of Line_1]]
+            property var points: []
+            //if the last stroke be removed
+            property var undoLastStroke: false
 
             onPaint: {
+                //setup path
                 var ctx = getContext('2d')
-                ctx.lineWidth = 1.5
-                ctx.strokeStyle = canvas.color
+                ctx.strokeStyle = "black"
+                ctx.lineWidth = 2
+
+                //paint
+                if(canvas.undoLastStroke === false && canvas.points.length > 0){
                 ctx.beginPath()
-                ctx.moveTo(lastX, lastY)
-                lastX = area.mouseX
-                lastY = area.mouseY
-                ctx.lineTo(lastX, lastY)
+                    //move line start to last cursor pos
+                    var length_lines  = canvas.points.length - 1
+                    var length_points = canvas.points[length_lines].length - 1
+                    ctx.moveTo(canvas.points[length_lines][length_points][0],
+                                canvas.points[length_lines][length_points][1])
+                    
+                    //get new pos of pointer and draw line to there
+                    canvas.points[length_lines].push([area.mouseX, area.mouseY])
+                    ctx.lineTo(canvas.points[length_lines][length_points + 1][0],
+                                canvas.points[length_lines][length_points + 1][1])
+                    ctx.stroke()
+                }
+                //redraw everything from the "lines"-array
+                else{
+                    for(let line = 0; line < canvas.points.length; line++){
+                        ctx.beginPath()
+                        for(let point = 0; point < canvas.points[line].length - 1; point++){
+                            
+                            ctx.moveTo(canvas.points[line][point][0],
+                                        canvas.points[line][point][1])
+                            
+                            //get new pos of pointer and draw line to there
+                            ctx.lineTo(canvas.points[line][point + 1][0],
+                                        canvas.points[line][point + 1][1])
+
+                        }
                 ctx.stroke()
+            }
+                    canvas.undoLastStroke = false
+                }
             }
 
             MouseArea {
@@ -114,12 +148,15 @@ ApplicationWindow {
                 anchors.fill: parent
 
                 onPressed: {
-                    canvas.lastX = mouseX
-                    canvas.lastY = mouseY
+                    canvas.points.push([ [mouseX, mouseY] ])
                 }
 
                 onPositionChanged: {
                     canvas.requestPaint()
+                    console.log(canvas.points.length)
+                } 
+            }
+        }
                 } 
             }
         }
