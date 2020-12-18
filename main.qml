@@ -156,10 +156,116 @@ ApplicationWindow {
 
                 onPositionChanged: {
                     canvas.requestPaint()
-                    console.log(canvas.points.length)
-                } 
+
+        //predicted kanji selection
+        Grid {
+            id: "selection_grid"
+
+            width:  5 * button_size + 4 * 10
+            height: 2 * button_size + 2 * 10
+            
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height - (height + button_size / 4)
+
+            columns: 5
+            rows: 2
+
+            spacing: 10   
+
+            property int button_size: 50
+
+
+            CustomMaterialButton {
+                id: "button_selection_0"
+
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_0.copy_character() }
             }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_1.copy_character() }
+            }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_2.copy_character() }
+            }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_3.copy_character() }
+            }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_4.copy_character() }
+            }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_5.copy_character() }
+            }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_6.copy_character() }
+                } 
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_7.copy_character() }
+            }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_8.copy_character() }
         }
+            CustomMaterialButton{
+                text: ""
+                font.pixelSize: selection_grid.button_size - 5
+                
+                width: selection_grid.button_size 
+                height: selection_grid.button_size 
+
+                onClicked: { text = kanji_9.copy_character() }
                 } 
             }
         }
