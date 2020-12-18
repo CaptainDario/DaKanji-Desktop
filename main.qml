@@ -19,6 +19,8 @@ ApplicationWindow {
 
     visible: true
 
+    property int menu_button_size: 30 
+
     Rectangle {
 
         width: mainWindow.width + 1
@@ -82,15 +84,16 @@ ApplicationWindow {
                 canvas.undoLastStroke = true
                 canvas.points.pop()
                 canvas.getContext("2d").reset()
-                canvas.requestPaint() 
+                canvas.requestPaint()
+
             }
         }
 
         //Kanji drawing canvas
         Canvas {
-            
             id: "canvas"
             
+            //ToDo: replace the BG image with an image for the canvas 
             width : drawing_aid.width > drawing_aid.height ? drawing_aid.height : drawing_aid.width
             height: drawing_aid.width > drawing_aid.height ? drawing_aid.height : drawing_aid.width
 
@@ -113,7 +116,7 @@ ApplicationWindow {
 
                 //paint
                 if(canvas.undoLastStroke === false && canvas.points.length > 0){
-                ctx.beginPath()
+                    ctx.beginPath()
                     //move line start to last cursor pos
                     var length_lines  = canvas.points.length - 1
                     var length_points = canvas.points[length_lines].length - 1
@@ -140,9 +143,11 @@ ApplicationWindow {
                                         canvas.points[line][point + 1][1])
 
                         }
-                ctx.stroke()
-            }
+                        ctx.stroke()
+                    }
                     canvas.undoLastStroke = false
+                    //send the new image to python
+                    python_canvas.get_current_image(canvas.toDataURL())
                 }
             }
 
@@ -156,6 +161,12 @@ ApplicationWindow {
 
                 onPositionChanged: {
                     canvas.requestPaint()
+                }
+                onReleased: {
+                    python_canvas.get_current_image(canvas.toDataURL())
+                } 
+            }
+        }
 
         //predicted kanji selection
         Grid {
@@ -239,7 +250,7 @@ ApplicationWindow {
                 height: selection_grid.button_size 
 
                 onClicked: { text = kanji_6.copy_character() }
-                } 
+            }
             CustomMaterialButton{
                 text: ""
                 font.pixelSize: selection_grid.button_size - 5
@@ -257,7 +268,7 @@ ApplicationWindow {
                 height: selection_grid.button_size 
 
                 onClicked: { text = kanji_8.copy_character() }
-        }
+            }
             CustomMaterialButton{
                 text: ""
                 font.pixelSize: selection_grid.button_size - 5
@@ -266,7 +277,7 @@ ApplicationWindow {
                 height: selection_grid.button_size 
 
                 onClicked: { text = kanji_9.copy_character() }
-                } 
             }
         }
+    }
 }
