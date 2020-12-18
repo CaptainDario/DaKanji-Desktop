@@ -4,10 +4,13 @@ import QtQuick.Window 2.2
 import QtQuick.Controls.Material 2.3
 
 
+
 ApplicationWindow {
 	id: mainWindow
-
     title: "Kanji recognizer"
+
+    minimumWidth : 350
+    minimumHeight: 350
 
     Material.theme: Material.Dark
 
