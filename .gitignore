@@ -138,3 +138,6 @@ dataset
 #exclude debuging images
 image.png
 image.jpg
+
+#exclude gimp files
+*.xcf
