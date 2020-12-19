@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv_dev
 env/
 venv/
 ENV/
@@ -130,3 +131,6 @@ dmypy.json
 
 #exclude vs studio code files
 .vscode
+
+#exculde data set
+dataset
