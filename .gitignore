@@ -134,3 +134,7 @@ dmypy.json
 
 #exculde data set
 dataset
+
+#exclude debuging images
+image.png
+image.jpg
