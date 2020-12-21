@@ -129,15 +129,20 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#exclude vs studio code files
+# vs studio code files
 .vscode
 
-#exculde data set
+# data set
 dataset
 
-#exclude debuging images
+# debuging images
 image.png
 image.jpg
 
-#exclude gimp files
+# gimp files
 *.xcf
+
+# papers
+papers/ANeuralFrameworkForOnlineRecognitionOfHandwrittenKanjiCharacters.pdf
+papers/OnlineHandwrittenKanjiRecognitionBasedonInter-strokeGrammar.pdf
+papers/RecognizingHandwrittenJapaneseCharactersUsingDeepConvolutionalNeuralNetworks.pdf
