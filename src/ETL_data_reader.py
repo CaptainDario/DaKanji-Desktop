@@ -26,8 +26,95 @@ class ETL_data_reader():
     co59_to_utf8 = None
 
     def __init__(self) -> None:
+        self.init_codes()
+        self.init_dataset_types()
+        
         path = os.path.join(os.path.dirname(os.getcwd()), "dataset", 'euc_co59.dat')
         self.co59_to_utf8 = CO59_to_utf8(path)
+
+    def init_codes(self):
+        """
+        Setup a dict which contains dicts with the necessary info about the data set.
+        
+        The tuple has the form:
+            ("decoding code", "struct's byte size", "entry's image bit depth",
+                "which index the label is in the struct", "the function to decode the label")
+        """
+
+        # TYPE_M -> ETL 1, 6, 7 - works
+        self.codes["M"] = {"code" : ">H 2s H 6B I 4H 4B 4x 2016s 4x".replace(" ", ""),
+                            "struct_size" : 2052,
+                            "img_size"    : (64, 63),
+                            "img_depth"   : 4,
+                            "label_index" : [1],
+                            "decoder" : self.decode_M_type_character}
+
+        # TYPE_K -> ETL 2
+        self.codes["K"] = {"code" : "uint:36, uint:6, pad:30, bits:36, bits:36, pad:24, bits:12, pad:180, bytes:2700",
+                            "struct_size" : 2745,
+                            "img_size" : (60, 60),
+                            "img_depth" : 6,
+                            "label_index" : [-2],
+                            "decoder" : self.decode_K_type_character}
+
+        # TYPE_C -> ETL 3, 4, 5
+        self.codes["C"] = {"code" : "uint:36,uint:36,hex:8,pad:28,hex:8,pad:28,bits:24,pad:12,15*uint:36,pad:1008,bytes:2736", 
+                            "struct_size" : 2952,
+                            "img_size" : (72, 76),
+                            "img_depth" : 4,
+                            "label_index" : [2, 4],
+                            "decoder" : self.decode_C_type_character}
+
+        # TYPE_8B -> ETL 8B
+        self.codes["8B"] = {"code" : "uint:16,hex:16,bytes:4,bytes:504",
+                            "struct_size" : 512,
+                            "img_size" : (64, 63),
+                            "img_depth" : 1,
+                            "label_index" : [1],
+                            "decoder" : self.decode_8B_type_character}
+        # TYPE_8G -> ETL 8G
+        self.codes["8G"] = {"code" : ">H 2s 8s I 4B 4H 2B 30x 8128s 11x".replace(" ", ""),
+                            "struct_size" : 8199,
+                            "img_size" : (128, 127),
+                            "img_depth" : 4,
+                            "label_index" : [1],
+                            "decoder" : self.decode_8G_type_character}
+        # TYPE_9B -> ETL 9B
+        self.codes["9B"] = {"code" : ">H 2s 4s 504s 64x".replace(" ", ""),
+                            "struct_size" : 576,
+                            "img_size" : (64, 63),
+                            "img_depth" : 1,
+                            "label_index" : [1],
+                            "decoder" : self.decode_9B_type_character}
+        # TYPE_9G -> ETL 9G
+        self.codes["9G"] = {"code" : ">H 2s 8s I 4B 4H 2B 34x 8128s 7x",
+                            "struct_size" : 8199,
+                            "img_size" : (128, 127),
+                            "img_depth" : 4,
+                            "label_index" : [1],
+                            "decoder" : self.decode_9B_type_character}
+
+    def T56(self, c):
+        t56s = '0123456789[#@:>? ABCDEFGHI&.](<  JKLMNOPQR-$*);\'|/STUVWXYZ ,%="!'
+        return t56s[c]
+
+    def init_dataset_types(self):
+        """
+        Initialize the dictionary of dataset_types and their codes
+        """
+
+        self.dataset_types["ETL1"]  = self.codes["M"]
+        self.dataset_types["ETL2"]  = self.codes["K"]
+        self.dataset_types["ETL3"]  = self.codes["C"]
+        self.dataset_types["ETL4"]  = self.codes["C"]
+        self.dataset_types["ETL5"]  = self.codes["C"]
+        self.dataset_types["ETL6"]  = self.codes["M"]
+        self.dataset_types["ETL7"]  = self.codes["M"]
+        self.dataset_types["ETL8"]  = self.codes["8B"]
+        self.dataset_types["ETL9"]  = self.codes["8G"]
+        self.dataset_types["ETL10"] = self.codes["9B"]
+        self.dataset_types["ETL11"] = self.codes["9G"]
+
     def read_dataset(self, path : str, data_set_id : str) -> List[Tuple[str, np.array]]:
         """
         Reads the given ETL data set with parameters according to the given data_set_id.
