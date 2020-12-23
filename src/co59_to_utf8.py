@@ -1,6 +1,9 @@
 import codecs
 
 class CO59_to_utf8:
+    """Decodes co59 to utf8 when called like a method.
+    """
+
     def __init__(self, euc_co59_file='euc_co59.dat'):
         with codecs.open(euc_co59_file, 'r', 'euc-jp') as f:
             co59t = f.read()
