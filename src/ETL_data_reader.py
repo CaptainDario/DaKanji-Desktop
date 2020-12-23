@@ -12,11 +12,12 @@ from typing import List, Tuple
 
 
 class ETL_data_reader():
-    """[summary]
+    """A class which contains a helper functions to load the data from the ETL data set.
 
-    Caution:
-        This class does not allow to use the following fields:
-            K-Type: Mark of Style
+    Attributes:
+        codes                (dict) : a dictionary which maps the data set types to info about them. 
+        dataset_types        (dict) : a dictionary which maps the data set name to the type it uses.
+        co59_to_utf8 (CO59_to_utf8) : an decoder object for the 59-code.
 
     """
 
@@ -32,13 +33,30 @@ class ETL_data_reader():
         path = os.path.join(os.path.dirname(os.getcwd()), "dataset", 'euc_co59.dat')
         self.co59_to_utf8 = CO59_to_utf8(path)
 
+    def T56(self, c : int) -> str:
+        """Decodes c into a string using the T56-code.
+
+        Args:
+            c (str): An integer which should be decoded using the T56-code.
+
+        Returns:
+            [str]: The decoded str.
+        """
+
+        t56s = '0123456789[#@:>? ABCDEFGHI&.](<  JKLMNOPQR-$*);\'|/STUVWXYZ ,%="!'
+        return t56s[c]
+
     def init_codes(self):
         """
         Setup a dict which contains dicts with the necessary info about the data set.
         
-        The tuple has the form:
-            ("decoding code", "struct's byte size", "entry's image bit depth",
-                "which index the label is in the struct", "the function to decode the label")
+        The tuples have the form:
+            "code"        : the code to read the entry
+            "struct_size" : the size of the entry in byte
+            "img_size"    : the pixel size of the entry's image
+            "img_depth"   : the bit depth of the entry;s image 
+            "label_index" : which index the label is in the struct
+            "decoder"     : the function to decode the label
         """
 
         # TYPE_M -> ETL 1, 6, 7 - works
@@ -117,14 +135,16 @@ class ETL_data_reader():
 
     def read_dataset(self, path : str, data_set_id : str) -> List[Tuple[str, np.array]]:
         """
-        Reads the given ETL data set with parameters according to the given data_set_id.
+        Reads the given ETL data at "path" with parameters according to the given "data_set_id".
 
         Args:
-            path        : the path to the data set which should be loaded.
-            data_set_id : ETL_ + {1, 2, 3, 4, 5, 6, 7, 8B, 8G, 9B, 9G}
+            path          : the path to the data set which should be loaded.
+            data_set_name : The identifier of the data set (valid are: ETL_ + {1, ..., 11})
+
 
         Returns:
-
+            List[Tuple[str, np.array]] : A list of all tuples which contain the images
+                                        and the characters from the data, set at 'path'.
         """
 
         data = []
