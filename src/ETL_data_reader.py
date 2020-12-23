@@ -1,6 +1,7 @@
 from co59_to_utf8 import CO59_to_utf8
 
 import os
+import re
 import struct
 from PIL import Image
 import numpy as np
@@ -190,6 +191,40 @@ class ETL_data_reader():
             
         return data
 
+    def read_dataset_whole(self, path : str, data_set_name : str, status_info : bool = True) -> List[Tuple[str, Image.Image]]:
+        """Reads all parts of an ETL data set in the folder given by path.
+
+        Searches in the folder given by path for parts of the ETL data set.
+        Only files matching the regex: data_set_name + "_\d+"
+
+        Caution:
+            Loading some data sets completely can use a lot of memory (ETL11 ~ 35GB)
+
+        Args:
+            path                   (str): The path to the folder from which all data sets should be loaded.
+            data_set_name          (str): The name of the data set to load (valid are: ETL_ + {1, ..., 11})
+            status_info (bool, optional): Output information of the loading progress. Defaults to True.
+
+        Returns:
+            List[Tuple[str, Image.Image]]: A list of all tuples which contain the images
+                                            and the labels from the data set(s) in the directory 'path'.
+        """
+
+
+        data = []
+
+        if(status_info):
+            print("Loading all data set files (" + data_set_name + ") from:", path, "...")
+
+        #regex to check if file is valid
+        reg = re.compile((data_set_name + r"_\d+"))
+
+        for file in os.listdir(path):
+            print(reg.match(file), "file:", file)
+            if(not (reg.match(file) is None)):
+                data += (self.read_dataset_part(os.path.join(path, file), data_set_name, status_info))
+
+        return data
 
 
     def decode_M_type_character(self, _bytes : bytes) -> str:
