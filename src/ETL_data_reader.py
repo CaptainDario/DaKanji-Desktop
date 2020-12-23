@@ -133,7 +133,7 @@ class ETL_data_reader():
         self.dataset_types["ETL10"] = self.codes["9B"]
         self.dataset_types["ETL11"] = self.codes["9G"]
 
-    def read_dataset(self, path : str, data_set_id : str) -> List[Tuple[str, np.array]]:
+    def read_dataset_part(self, path : str, data_set_name : str, status_info : bool = True) -> List[Tuple[str, np.array]]:
         """
         Reads the given ETL data at "path" with parameters according to the given "data_set_id".
 
@@ -149,16 +149,18 @@ class ETL_data_reader():
 
         data = []
         
+        if(status_info):
+            print("Loading:", os.path.basename(path))
+        
         #check that the given id is a valid one
-        if(not data_set_id in self.dataset_types):
-            print("Error! The given ID:", data_set_id, "is not valid.")
+        if(not data_set_name in self.dataset_types):
+            print("Error! The given ID:", data_set_name, "is not valid.")
             print("Legal keys are:")
             print(self.dataset_types.keys())
 
         else:
             #get the necessary info from the dict
-            data_info = self.dataset_types[data_set_id]
-            print(data_info)
+            data_info = self.dataset_types[data_set_name]
 
             #open the file and read it byte by byte
             with open(path, "rb") as f:
@@ -167,10 +169,8 @@ class ETL_data_reader():
                 f.seek(data_info["struct_size"], 0)
                 while(_bytes := f.read(data_info["struct_size"])):
 
-
-                    raw = None 
-
                     #unpack the packed data - byte-coded
+                    raw = None 
                     if(data_info["code"].startswith(">")):
                         raw = struct.unpack(data_info["code"], _bytes)
                     #character-coded (1 character = 6 Bit)
