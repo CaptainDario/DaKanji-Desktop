@@ -3,7 +3,7 @@ A simple Qt and Tensorflow app which classifies kanji characters which the user 
 
 
 # Development Notes
-Python 3.8 was used for development.
+Python 3.8 and vs code with the jupyter extension were used for development.
 
 For development and training the network are other packages necessary than just for executing the application.
 Therefore this project has two different "requirements.txt".
