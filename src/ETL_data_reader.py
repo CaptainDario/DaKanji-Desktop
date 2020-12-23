@@ -22,7 +22,6 @@ class ETL_data_reader():
 
     """
 
-
     codes         = {}
     dataset_types = {}
     co59_to_utf8 = None
@@ -113,9 +112,6 @@ class ETL_data_reader():
                             "label_index" : [1],
                             "decoder" : self.decode_9B_type_character}
 
-    def T56(self, c):
-        t56s = '0123456789[#@:>? ABCDEFGHI&.](<  JKLMNOPQR-$*);\'|/STUVWXYZ ,%="!'
-        return t56s[c]
 
     def init_dataset_types(self):
         """
@@ -140,16 +136,16 @@ class ETL_data_reader():
 
         Args:
             path          : the path to the data set which should be loaded.
-            data_set_name : The identifier of the data set (valid are: ETL_ + {1, ..., 11})
+            data_set_name : The name of the data set to load (valid are: ETL_ + {1, ..., 11})
 
 
         Returns:
             List[Tuple[str, np.array]] : A list of all tuples which contain the images
-                                        and the characters from the data, set at 'path'.
+                                        and the labels from the data set given by 'path'.
         """
 
         data = []
-        
+
         if(status_info):
             print("Loading:", os.path.basename(path))
         
