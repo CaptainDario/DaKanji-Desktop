@@ -84,7 +84,7 @@ class ETL_data_reader():
                             "decoder" : self.decode_C_type_character}
 
         # TYPE_8B -> ETL 8B
-        self.codes["8B"] = {"code" : "uint:16,hex:16,bytes:4,bytes:504",
+        self.codes["8B"] = {"code" : ">H 2s 4s 504s".replace(" ", ""),
                             "struct_size" : 512,
                             "img_size" : (64, 63),
                             "img_depth" : 1,
@@ -233,7 +233,7 @@ class ETL_data_reader():
         """
 
         #print(_bytes, bytes.fromhex(_bytes), bytes.fromhex('1b2442' + _bytes + '1b2842'))
-        return bytes.fromhex('1b2442' + _bytes + '1b2842').decode('iso2022_jp')
+        return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
 
     def decode_8G_type_character(self, _bytes : bytes) -> str:
         """Decodes _bytes which encode the label from an entry from the ETL8B data set. 
