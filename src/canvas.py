@@ -1,5 +1,8 @@
-from binascii import a2b_base64
 import urllib.request
+
+from matplotlib import pyplot as plt
+import  numpy as np
+from PIL import Image
 
 from PySide6 import QtCore
 
@@ -14,10 +17,26 @@ class Canvas(QtCore.QObject):
 
     @QtCore.Slot(str)
     def get_current_image(self, data_uri_image):
+        """[summary]
+
+        Args:
+            data_uri_image ([type]): [description]
+        """
         
-        binary = urllib.request.urlopen(data_uri_image)
+        #convert the image from data_uri to PIL.Image
+        img_base_64 = urllib.request.urlopen(data_uri_image)
+        image = Image.open(img_base_64.file)
+        image = image.resize(size=(64, 64), resample=Image.ANTIALIAS, reducing_gap=2.0)
 
-        with open("image.png", "wb") as f:
-            f.write(binary.file.read())
+        #convert image to np.array and make it grayscale
+        image = np.array(image)
+    
+        # 'convert' image to grayscale and normalize between (0, 1)
+        image = image[..., -1]
+        image[image > 50] = 255
+        image = image / image.max()
 
-        print("Image handed to python")
+        plt.imshow(image)
+        plt.show()
+
+        print("Image converted in python")
