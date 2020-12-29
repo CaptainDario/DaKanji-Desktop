@@ -31,5 +31,5 @@ class Kanji(QtCore.QObject):
         return self.character
 
     def __str__(self):
-        return 'Person "{}" {}'.format(self.character, self.number)
+        return 'Person "{}" {}'.format(self.character)
 
