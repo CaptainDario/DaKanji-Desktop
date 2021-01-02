@@ -195,7 +195,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_0.copy_character() }
+                onClicked: { text = predictionButton_0.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -204,7 +204,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_1.copy_character() }
+                onClicked: { text = predictionButton_1.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -213,7 +213,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_2.copy_character() }
+                onClicked: { text = predictionButton_2.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -222,7 +222,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_3.copy_character() }
+                onClicked: { text = predictionButton_3.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -231,7 +231,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_4.copy_character() }
+                onClicked: { text = predictionButton_4.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -240,7 +240,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_5.copy_character() }
+                onClicked: { text = predictionButton_5.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -249,7 +249,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_6.copy_character() }
+                onClicked: { text = predictionButton_6.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -258,7 +258,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_7.copy_character() }
+                onClicked: { text = predictionButton_7.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -267,7 +267,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_8.copy_character() }
+                onClicked: { text = predictionButton_8.button_pressed() }
             }
             CustomMaterialButton{
                 text: ""
@@ -276,7 +276,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = kanji_9.copy_character() }
+                onClicked: { text = predictionButton_9.button_pressed() }
             }
         }
     }
