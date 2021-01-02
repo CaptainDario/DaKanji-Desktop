@@ -8,20 +8,11 @@ from prediction_button import PredictionButton
 from canvas import Canvas
 
 
-from etl_data_reader import ETL_data_reader
-from etl_data_names import ETL_data_names
-from etl_character_groups import ETL_character_groups
-
-
-
 predictionButtons = []
 nr_kanji = 10
 python_canvas = Canvas()
 
 if __name__ == "__main__":
-
-    reader = ETL_data_reader(r"E:\projects\DaKanjiRecognizer\dataset")
-    imgs, labels = reader.read_dataset_whole(ETL_character_groups.kanji)
 
     app = QApplication(sys.argv)
 
