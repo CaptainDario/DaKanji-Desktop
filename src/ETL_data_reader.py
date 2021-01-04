@@ -8,7 +8,8 @@ import numpy as np
 import bitstring
 import jaconv
 
-from typing import List, Tuple
+from tqdm.auto import tqdm
+from typing import Tuple
 
 
 
