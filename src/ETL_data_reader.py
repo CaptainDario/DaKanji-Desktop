@@ -220,36 +220,45 @@ class ETL_data_reader():
             if(not (reg.match(file) is None)):
                 data += (self.read_dataset_part(os.path.join(path, file), data_set_name, status_info))
 
-        return data
+    def read_dataset_whole(self, *include : ETLCharacterGroups,
+                            resize : Tuple[int, int] = (64, 64),
+                            normalize : bool = True) -> Tuple[np.array, np.array]:
+        """ Read, process and filter the whole ETL data set (ETL1 - ETL9G).
 
+        Caution:
+            Reading the whole dataset with all available entries will use up a lot of memory (>50GB).
 
-    def decode_M_type_character(self, _bytes : bytes) -> str:
-        """Decodes _bytes which encode the label from an entry from a
-            data set which follow the M_TYPE from the ETL data set. 
+        Warning:
+            Will throw an error if not all parts and files of the data set can be found in 'self.path'.
+            Also if the images do not get resized to the same size.
 
-        Args:
-            _bytes (bytes): The bytes object which should be decoded.
+        Arguments:
+            *include  : All character types (Kanji, Hiragana, Symbols, stc.) which should be included. If unset everyting will be loaded.
+            resize    : The size the image should be resized (if resize < 1 the images will not be resized). Defaults to (64, 64).
+            normalize : Should the gray values be normalized between [0.0, 1.0]. Defaults to True.
 
         Returns:
-            str: The decoded label.
+            The loaded and filtered data set entries in the form: (images, labels).
         """
     
-        return bytes.fromhex(_bytes.hex()).decode('iso2022_jp')
+        imgs, labels = [], []
 
-    def decode_K_type_character(self, _bytes : bytes):
+        #iterate over all available data_set parts
+        for _type in ETLDataNames:
         
-        tup = tuple([b.uint for b in _bytes.cut(6)])
-        return self.co59_to_utf8(tup)
+            #read all parts
+            _imgs, _labels = self.read_dataset_part(_type, *include, resize=resize, normalize=normalize)
 
-    def decode_C_type_character(self, _bytes : bytes, char_code):
+            #make sure the loaded data is not an empty array
+            if(len(_imgs) > 0 and len(_labels) > 0):
+                imgs.append(_imgs)
+                labels.append(_labels)
 
-        char_code = ''.join([ self.T56(b.uint) for b in char_code.cut(6) ])
+        #only concatenate if there were arrays loaded
+        if(len(imgs) > 0 and len(labels) > 0):
+            imgs, labels = np.concatenate(imgs), np.concatenate(labels)
 
-        char = bytes.fromhex(_bytes).decode('shift_jis')
-        if char_code[0] == 'H':
-            char = jaconv.kata2hira(jaconv.han2zen(char)).replace('ぃ', 'ゐ').replace('ぇ', 'ゑ')
-        elif char_code[0] == 'K':
-            char = jaconv.han2zen(char).replace('ィ', 'ヰ').replace('ェ', 'ヱ')
+        return imgs, labels
 
     def process_image(self, imageF : Image.Image,
                             img_size : Tuple[int, int],
