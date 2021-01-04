@@ -98,17 +98,18 @@ class ETLDataReader():
         Initialize the dictionary of dataset_types and their codes
         """
 
-        self.dataset_types["ETL1"]  = self.codes["M"]
-        self.dataset_types["ETL2"]  = self.codes["K"]
-        self.dataset_types["ETL3"]  = self.codes["C"]
-        self.dataset_types["ETL4"]  = self.codes["C"]
-        self.dataset_types["ETL5"]  = self.codes["C"]
-        self.dataset_types["ETL6"]  = self.codes["M"]
-        self.dataset_types["ETL7"]  = self.codes["M"]
-        self.dataset_types["ETL8"]  = self.codes["8B"]
-        self.dataset_types["ETL9"]  = self.codes["8G"]
-        self.dataset_types["ETL10"] = self.codes["9B"]
-        self.dataset_types["ETL11"] = self.codes["9G"]
+        self.dataset_types[ETLDataNames.ETL1 ] = self.codes.code_M
+        self.dataset_types[ETLDataNames.ETL2 ] = self.codes.code_K
+        self.dataset_types[ETLDataNames.ETL3 ] = self.codes.code_C
+        self.dataset_types[ETLDataNames.ETL4 ] = self.codes.code_C
+        self.dataset_types[ETLDataNames.ETL5 ] = self.codes.code_C
+        self.dataset_types[ETLDataNames.ETL6 ] = self.codes.code_M
+        self.dataset_types[ETLDataNames.ETL7 ] = self.codes.code_M
+        self.dataset_types[ETLDataNames.ETL8B] = self.codes.code_8B
+        self.dataset_types[ETLDataNames.ETL8G] = self.codes.code_8G
+        self.dataset_types[ETLDataNames.ETL9B] = self.codes.code_9B
+        self.dataset_types[ETLDataNames.ETL9G] = self.codes.code_9G
+
 
     def read_dataset_file(self, part : int,
                             data_set : ETLDataNames,
