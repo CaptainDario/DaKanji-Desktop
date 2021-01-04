@@ -1,6 +1,6 @@
 from enum import Enum
 
-class ETL_character_groups(Enum):
+class ETLCharacterGroups(Enum):
 
     all      = r".*"
 
