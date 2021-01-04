@@ -13,53 +13,31 @@ from typing import Tuple
 
 
 
-class ETL_data_reader():
-    """A class which contains a helper functions to load the data from the ETL data set.
 
 class ETLDataReader():
-    Attributes:
-        codes                (dict) : a dictionary which maps the data set types to info about them. 
-        dataset_types        (dict) : a dictionary which maps the data set name to the type it uses.
-        co59_to_utf8 (CO59_to_utf8) : an decoder object for the 59-code.
+    """A class which contains helper functions to load, process and filter the data from the ETL data set.
 
+    Attributes:
+        codes     (ETLCodes) : ETLCodes instance for decoding the ETL data set labels. 
+        dataset_types (dict) : A dict which maps the data set parts to their type.
+        path           (str) : The path to the folder with the data set (should also contain 'euc_c059.dat').
+        data_set_parts_with_dummy [ETLDataNames] : A list of the data set parts which have a dummy entry at the beginning.
     """
 
-    codes         = {}
-    dataset_types = {}
-    co59_to_utf8 = None
 
-    def __init__(self) -> None:
-        self.init_codes()
+    def __init__(self, path : str) -> None:
+        
+        self.codes         = None
+        self.dataset_types = {}
+        self.path          = path
+
+        #create an instance of ETLCodes to decode loaded data
+        self.codes = ETLCodes(os.path.join(self.path, "euc_co59.dat"))
+
         self.init_dataset_types()
-        
-        path = os.path.join(os.path.dirname(os.getcwd()), "dataset", 'euc_co59.dat')
-        self.co59_to_utf8 = CO59_to_utf8(path)
 
-    def T56(self, c : int) -> str:
-        """Decodes c into a string using the T56-code.
-
-        Args:
-            c (str): An integer which should be decoded using the T56-code.
-
-        Returns:
-            [str]: The decoded str.
-        """
-
-        t56s = '0123456789[#@:>? ABCDEFGHI&.](<  JKLMNOPQR-$*);\'|/STUVWXYZ ,%="!'
-        return t56s[c]
-
-    def init_codes(self):
-        """
-        Setup a dict which contains dicts with the necessary info about the data set.
-        
-        The tuples have the form:
-            "code"        : the code to read the entry
-            "struct_size" : the size of the entry in byte
-            "img_size"    : the pixel size of the entry's image
-            "img_depth"   : the bit depth of the entry;s image 
-            "label_index" : which index the label is in the struct
-            "decoder"     : the function to decode the label
-        """
+        #ETL8B and 9B have a dummy entry at the beginning
+        self.data_set_parts_with_dummy = [ETLDataNames.ETL8B, ETLDataNames.ETL9B]
 
         # TYPE_M -> ETL 1, 6, 7 - works
         self.codes["M"] = {"code" : ">H 2s H 6B I 4H 4B 4x 2016s 4x".replace(" ", ""),
