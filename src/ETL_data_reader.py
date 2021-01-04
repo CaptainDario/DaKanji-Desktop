@@ -251,32 +251,40 @@ class ETL_data_reader():
         elif char_code[0] == 'K':
             char = jaconv.han2zen(char).replace('ィ', 'ヰ').replace('ェ', 'ヱ')
 
-        return char
+    def process_image(self, imageF : Image.Image,
+                            img_size : Tuple[int, int],
+                            img_depth : int) -> np.array:
+        """ Processes the given ETL-image.
 
-    def decode_8B_type_character(self, _bytes : bytes) -> str:
-        """[summary]
-
-        Args:
-            _bytes (bytes): [description]
-
-        Returns:
-            str: [description]
-        """
-
-        #print(_bytes, bytes.fromhex(_bytes), bytes.fromhex('1b2442' + _bytes + '1b2842'))
-        return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
-
-    def decode_8G_type_character(self, _bytes : bytes) -> str:
-        """Decodes _bytes which encode the label from an entry from the ETL8B data set. 
+        The image will be resized to 'img_size' and the color channel depth will be normalized to its 'img_depth'.
 
         Args:
-            _bytes (bytes): The bytes object which should be decoded.
+            imageF    : The image which should be processed.
+            img_size  : The size which the image should be resized to (no resizing if any component < 1).
+            img_depth : The gray scale depth of the image (no normalization when set to < 1).
 
         Returns:
-            str: The decoded label.
+            The processed image.
         """
 
-        return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
+        #convert to 8-bit
+        img = imageF.convert('P')
+
+        #resize the image
+        if(img_size[0] > 1 and img_size[1] > 1):
+            img = img.resize(size=(img_size[1], img_size[0]), resample=Image.LINEAR)
+
+        img = np.array(img)
+
+        #normalize between 0 and 1
+        if(img_depth > 1):
+            normalization_factor = (2.0 ** img_depth - 1)
+            img = img / normalization_factor
+
+        #reshape to separate the color channel
+        img = img.reshape(len(img), len(img[0]), 1)
+
+        return img
 
     def select_entries(self, label : str, *include : ETLCharacterGroups) -> bool:
         """ Checks if the given entry given by 'label' should be included in the loaded data set.
