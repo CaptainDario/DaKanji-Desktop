@@ -6,8 +6,10 @@ from etldr.etl_data_set_info import ETLDataSetInfo
 
 class ETLCodes():
     """
-    Caution:
-        The 'euc_co59.dat'-file from the ETL data set is required.
+    A convenience class for using all codecs which are used in the ETL data set.
+
+    Warning:
+        The 'euc_co59.dat'-file from the ETL data set is required in the data set directory. 
     """
 
     def __init__(self, euc_co59_file_path : str) -> None:
@@ -33,7 +35,7 @@ class ETLCodes():
 
     def init_codes(self):
         """
-        Setup a dict which contains ETL_data_set_info-instances with the necessary info about the data set types.
+        Setup a dict which contains ETLDataSetInfo-instances with the necessary info about the data set types.
         """
 
         # TYPE_M -> ETL 1, 6, 7 - works
@@ -62,10 +64,10 @@ class ETLCodes():
         """Decodes c into a string using the T56-code.
 
         Args:
-            c (str): An integer which should be decoded using the T56-code.
+            c : An integer which should be decoded using the T56-code.
 
         Returns:
-            [str]: The decoded str.
+            The decoded str.
         """
 
         t56s = '0123456789[#@:>? ABCDEFGHI&.](<  JKLMNOPQR-$*);\'|/STUVWXYZ ,%="!'
@@ -75,32 +77,48 @@ class ETLCodes():
         """Decodes co59 to utf-8.
 
         Args:
-            co59 (str): The string which should be decoded from co59 to utf-8.
+            co59 : The string which should be decoded from co59 to utf-8.
 
         Returns:
-            str: The decoded utf-8 string
+            The decoded utf-8 string
         """
         return self.conv[co59]
 
     def decode_M_type_character(self, _bytes : bytes) -> str:
-        """Decodes _bytes which encode the label from an entry from a
-            data set which follow the M_TYPE from the ETL data set. 
+        """Decodes _bytes which encode the label from an entry which has the ETL-M type. 
 
         Args:
-            _bytes (bytes): The bytes object which should be decoded.
+            _bytes : The bytes object which should be decoded.
 
         Returns:
-            str: The decoded label.
+            The decoded label.
         """
     
         return bytes.fromhex(_bytes.hex()).decode('iso2022_jp')
 
     def decode_K_type_character(self, _bytes : bytes) -> str:
+        """Decodes _bytes which encode the label from an entry which has the ETL-K type. 
+
+        Args:
+            _bytes : The bytes object which should be decoded.
+
+        Returns:
+            The decoded label.
+        """
         
         tup = tuple([b.uint for b in _bytes.cut(6)])
         return self.co59_to_utf8(tup)
 
     def decode_C_type_character(self, _bytes : bytes, char_code) -> str:
+        """Decodes _bytes which encode the label from an entry which has the ETL-C type. 
+
+        Args:
+            _bytes    : The bytes object which should be decoded.
+            char_code : The T56 code of the entry.
+
+        Returns:
+            [description]
+        """
 
         char_code = ''.join([ self.T56(b.uint) for b in char_code.cut(6) ])
 
@@ -113,50 +131,50 @@ class ETLCodes():
         return char
 
     def decode_8B_type_character(self, _bytes : bytes) -> str:
-        """[summary]
+        """Decodes _bytes which encode the label from an entry which has the ETL-8B type. 
 
         Args:
-            _bytes (bytes): [description]
+            _bytes : The bytes object which should be decoded.
 
         Returns:
-            str: [description]
+            The decoded label.
         """
 
         #print(_bytes, bytes.fromhex(_bytes), bytes.fromhex('1b2442' + _bytes + '1b2842'))
         return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
 
     def decode_8G_type_character(self, _bytes : bytes) -> str:
-        """Decodes _bytes which encode the label from an entry from the ETL8B data set. 
+        """Decodes _bytes which encode the label from an entry which has the ETL-8G type. 
 
         Args:
-            _bytes (bytes): The bytes object which should be decoded.
+            _bytes : The bytes object which should be decoded.
 
         Returns:
-            str: The decoded label.
+            The decoded label.
         """
 
         return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
 
     def decode_9B_type_character(self, _bytes : bytes) -> str:
-        """Decodes _bytes which encode the label from an entry from the ETL9B data set. 
+        """Decodes _bytes which encode the label from an entry which has the ETL-9B type. 
 
         Args:
-            _bytes (bytes): The bytes object which should be decoded.
+            _bytes : The bytes object which should be decoded.
 
         Returns:
-            str: The decoded label.
+            The decoded label.
         """
 
         return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
 
     def decode_9G_type_character(self, _bytes : bytes) -> str:
-        """Decodes _bytes which encode the label from an entry from the ETL9G data set. 
+        """Decodes _bytes which encode the label from an entry which has the ETL-9G type. 
 
         Args:
-            _bytes (bytes): The bytes object which should be decoded.
+            _bytes : The bytes object which should be decoded.
 
         Returns:
-            str: The decoded label.
+            The decoded label.
         """
 
         return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
