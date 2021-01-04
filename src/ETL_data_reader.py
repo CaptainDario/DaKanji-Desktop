@@ -130,65 +130,68 @@ class ETL_data_reader():
         self.dataset_types["ETL10"] = self.codes["9B"]
         self.dataset_types["ETL11"] = self.codes["9G"]
 
-    def read_dataset_part(self, path : str, data_set_name : str, status_info : bool = True) -> List[Tuple[str, np.array]]:
-        """
-        Reads the given ETL data at "path" with parameters according to the given "data_set_id".
+    def read_dataset_file(self, part : int,
+                            data_set : ETLDataNames,
+                            *include : ETLCharacterGroups,
+                            resize : Tuple[int, int] = (64, 64),
+                            normalize : bool = True) -> Tuple[np.array, np.array]:
+        """Reads, process and filters all entries from the ETL data set file.
 
         Args:
-            path          : the path to the data set which should be loaded.
-            data_set_name : The name of the data set to load (valid are: ETL_ + {1, ..., 11})
-
+            part      : The part which should be loaded from the given data set part (only the number).
+            data_set  : The data set part which should be loaded (ex.: 'ETL1').
+            *include  : All character types (Kanji, Hiragana, Symbols, stc.) which should be included. If unset everyting will be loaded.
+            resize    : The size the image should be resized (if resize < 1 the images will not be resized). Defaults to (64, 64).
+            normalize : Should the gray values be normalized between [0.0, 1.0]. Defaults to True.
 
         Returns:
-            List[Tuple[str, np.array]] : A list of all tuples which contain the images
-                                        and the labels from the data set given by 'path'.
+            The loaded and filtered data set entries in the given file in the form: (images, labels).
         """
 
-        data = []
-
-        if(status_info):
-            print("Loading:", os.path.basename(path))
+        imgs, labels = [], []
         
-        #check that the given id is a valid one
-        if(not data_set_name in self.dataset_types):
-            print("Error! The given ID:", data_set_name, "is not valid.")
-            print("Legal keys are:")
-            print(self.dataset_types.keys())
-
-        else:
-            #get the necessary info from the dict
-            data_info = self.dataset_types[data_set_name]
+        #get the necessary data set info from the dict
+        data_info = self.dataset_types[data_set]
 
             #open the file and read it byte by byte
+        path = os.path.join(self.path, data_set.value, data_set.value + "_" + str(part))
             with open(path, "rb") as f:
                 
-                #skip dummy entries
-                f.seek(data_info["struct_size"], 0)
-                while(_bytes := f.read(data_info["struct_size"])):
+            #get file size 
+            f.seek(0, 2)
+            file_size = int(f.tell() / data_info.struct_size)
+            f.seek(0, 0)
+            #skip dummy entries if necessary
+            if(data_set in self.data_set_parts_with_dummy):
+                f.seek(data_info.struct_size, 0)
+                file_size -= 1
 
-                    #unpack the packed data - byte-coded
-                    raw = None 
-                    if(data_info["code"].startswith(">")):
-                        raw = struct.unpack(data_info["code"], _bytes)
-                    #character-coded (1 character = 6 Bit)
+            with tqdm(total=file_size, position=0, leave=False) as prog_bar:
+                prog_bar.set_description("Loading: " + os.path.basename(path) + "   ")
+
+                #iterate over the data set entries
+                while(_bytes := f.read(data_info.struct_size)):
+                    #unpack the packed data
+                    if(data_info.code.startswith(">")):
+                        raw = struct.unpack(data_info.code, _bytes)
                     else:
                         raw = bitstring.ConstBitStream(bytes=_bytes)
-                        raw = raw.readlist(data_info["code"])
+                        raw = raw.readlist(data_info.code)
 
-                    #convert the image to an PIL.image in mode "P"
-                    imageF = Image.frombytes('F', data_info["img_size"], raw[-1], 'bit', data_info["img_depth"])
-                    #imageP = imageF.convert('P')
-                    img = np.array(imageF)
+                    #convert the image and process it if given
+                    imageF = Image.frombytes('F', data_info.img_size, raw[-1], 'bit', data_info.img_depth)
+                    img = self.process_image(imageF, resize, data_info.img_depth if normalize else -1)
 
-                    indices = data_info["label_index"]
-                    label = data_info["decoder"](*list(raw[i] for i in indices))
-
-                    data.append( (img, label) )
+                    #decode the label
+                    label = data_info.decoder(*list(raw[i] for i in data_info.label_index)).replace(" ", "")
             
-        return data
+                    if(self.select_entries(label, *include)):
+                        imgs.append(img)
+                        labels.append(label)
+                    prog_bar.update(1)
 
-    def read_dataset_whole(self, path : str, data_set_name : str, status_info : bool = True) -> List[Tuple[str, Image.Image]]:
-        """Reads all parts of an ETL data set in the folder given by path.
+        #convert lists to numpy arrays
+        return np.array(imgs, dtype="float16"), np.array(labels, dtype="str")
 
     def read_dataset_part(self, data_set : ETLDataNames,
                             *include : ETLCharacterGroups,
