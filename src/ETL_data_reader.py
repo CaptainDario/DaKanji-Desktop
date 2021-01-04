@@ -16,6 +16,7 @@ from typing import Tuple
 class ETL_data_reader():
     """A class which contains a helper functions to load the data from the ETL data set.
 
+class ETLDataReader():
     Attributes:
         codes                (dict) : a dictionary which maps the data set types to info about them. 
         dataset_types        (dict) : a dictionary which maps the data set name to the type it uses.
