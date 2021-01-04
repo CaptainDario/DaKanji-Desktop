@@ -1,6 +1,6 @@
 from enum import Enum
 
-class ETL_data_names(Enum):
+class ETLDataNames(Enum):
 
     ETL1  = "ETL1"
     ETL2  = "ETL2"
