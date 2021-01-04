@@ -190,35 +190,50 @@ class ETL_data_reader():
     def read_dataset_whole(self, path : str, data_set_name : str, status_info : bool = True) -> List[Tuple[str, Image.Image]]:
         """Reads all parts of an ETL data set in the folder given by path.
 
-        Searches in the folder given by path for parts of the ETL data set.
-        Only files matching the regex: data_set_name + "_\d+"
+    def read_dataset_part(self, data_set : ETLDataNames,
+                            *include : ETLCharacterGroups,
+                            resize : Tuple[int, int] = (64, 64),
+                            normalize : bool = True) -> Tuple[np.array, np.array]:
+        """Read, process and filter one part (ex.: ETL1) of the ETL data set.
 
-        Caution:
-            Loading some data sets completely can use a lot of memory (ETL11 ~ 35GB)
+        Warning:
+            Will throw an error if not all parts of the data set can be found in 'self.path\data_set'.
+            Also if the images do not get resized to the same size.
 
         Args:
-            path                   (str): The path to the folder from which all data sets should be loaded.
-            data_set_name          (str): The name of the data set to load (valid are: ETL_ + {1, ..., 11})
-            status_info (bool, optional): Output information of the loading progress. Defaults to True.
+            data_set : The data set part which should be loaded.
+            *include  : All character types (Kanji, Hiragana, Symbols, stc.) which should be included. If unset everyting will be loaded.
+            resize    : The size the image should be resized (if resize < 1 the images will not be resized). Defaults to (64, 64).
+            normalize : Should the gray values be normalized between [0.0, 1.0]. Defaults to True.
 
         Returns:
-            List[Tuple[str, Image.Image]]: A list of all tuples which contain the images
-                                            and the labels from the data set(s) in the directory 'path'.
+            The loaded and filtered data set entries in the form: (images, labels).
         """
 
+        imgs, labels = [], []
 
-        data = []
-
-        if(status_info):
-            print("Loading all data set files (" + data_set_name + ") from:", path, "...")
+        print("Loading all data set files (" + data_set.value + "_x) from: " + os.path.join(self.path, data_set.value) + "...", flush=True)
 
         #regex to check if file is valid
-        reg = re.compile((data_set_name + r"_\d+"))
+        reg = re.compile((data_set.value + r"_\d+"))
 
-        for file in os.listdir(path):
-            print(reg.match(file), "file:", file)
-            if(not (reg.match(file) is None)):
-                data += (self.read_dataset_part(os.path.join(path, file), data_set_name, status_info))
+        #get all ETL files in the directory
+        data_set_files = [f for f in os.listdir(os.path.join(self.path, data_set.value)) if not (reg.match(f) is None)]
+
+        for cnt, file in enumerate(data_set_files, start=1):
+
+            _imgs, _labels = self.read_dataset_file(cnt, data_set, *include, resize=resize, normalize=normalize)
+
+            #make sure that data was loaded and not empty arrays get appended 
+            if(len(_imgs) > 0 and len(_labels) > 0):
+                imgs.append(_imgs)
+                labels.append(_labels)
+
+        #only concatenate if there were arrays loaded
+        if(len(imgs) > 0 and len(labels) > 0):
+            imgs, labels = np.concatenate(imgs), np.concatenate(labels)
+
+        return imgs, labels
 
     def read_dataset_whole(self, *include : ETLCharacterGroups,
                             resize : Tuple[int, int] = (64, 64),
