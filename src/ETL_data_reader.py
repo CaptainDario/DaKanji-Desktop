@@ -278,26 +278,28 @@ class ETL_data_reader():
 
         return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
 
-    def decode_9B_type_character(self, _bytes : bytes):
-        """Decodes _bytes which encode the label from an entry from the ETL9B data set. 
+    def select_entries(self, label : str, *include : ETLCharacterGroups) -> bool:
+        """ Checks if the given entry given by 'label' should be included in the loaded data set.
 
         Args:
-            _bytes (bytes): The bytes object which should be decoded.
+            label    : The label which should be checked if it should be included.
+            *include : All character types which should be included. Defaults to all if unset.
 
         Returns:
-            str: The decoded label.
+            bool: True if the entry should be included, False otherwise.
         """
 
-        return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
+        #if the parameter is unset load everything
+        if(not include):
+            include = [ETLCharacterGroups.all]
 
-    def decode_9G_type_character(self, _bytes : bytes):
-        """Decodes _bytes which encode the label from an entry from the ETL9G data set. 
+        #list of regex's for filtering the different groups
+        regex = "|".join([i.value for i in include])
 
-        Args:
-            _bytes (bytes): The bytes object which should be decoded.
+        #match with regex if label should be included
+        reg = re.compile(regex)
+        should_include = reg.match(label) 
 
-        Returns:
-            str: The decoded label.
-        """
+        return should_include
 
         return bytes.fromhex('1b2442' + _bytes.hex() + '1b2842').decode('iso2022_jp')
