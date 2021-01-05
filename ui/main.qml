@@ -6,7 +6,7 @@ import QtQuick.Controls.Material 2.3
 
 ApplicationWindow {
 	id: mainWindow
-    title: "Kanji recognizer"
+    title: "DaKanjiRecognizer - v1.0"
 
     minimumWidth : 350
     minimumHeight: 350
@@ -50,7 +50,7 @@ ApplicationWindow {
             id: "button_clear"
 
             x: canvas.width + canvas.x - mainWindow.menu_button_size
-            y: canvas.y - mainWindow.menu_button_size 
+            y: canvas.y - mainWindow.menu_button_size - 2
 
             width : mainWindow.menu_button_size
             height: mainWindow.menu_button_size
@@ -78,7 +78,7 @@ ApplicationWindow {
             id: "button_undo"
 
             x: canvas.width + canvas.x - 2*mainWindow.menu_button_size - 5
-            y: canvas.y - mainWindow.menu_button_size 
+            y: canvas.y - mainWindow.menu_button_size  - 2
 
             width : mainWindow.menu_button_size
             height: mainWindow.menu_button_size
