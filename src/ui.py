@@ -10,7 +10,7 @@ from predictor import Predictor
 
 
 
-class Ui(QtCore.QObject):
+class UI(QtCore.QObject):
 
 
     prediction_changed = QtCore.Signal(str)
