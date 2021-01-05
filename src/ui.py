@@ -65,3 +65,10 @@ class UI(QtCore.QObject):
             image = image / image.max()
 
             image = image.reshape(1, 64, 64, 1)
+
+            # predict
+            predictions = self.predictor.predict(image, self.pred_count)
+            for cnt, pred in enumerate(predictions):
+                self.prediction_btns[cnt].character = pred
+
+            
