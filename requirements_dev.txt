@@ -4,6 +4,7 @@ astunparse==1.6.3
 async-generator==1.10
 attrs==20.3.0
 backcall==0.2.0
+bitstring==3.1.7
 bleach==3.2.1
 cachetools==4.2.0
 certifi==2020.12.5
@@ -14,6 +15,7 @@ cycler==0.10.0
 decorator==4.4.2
 defusedxml==0.6.0
 entrypoints==0.3
+etl-data-reader-CaptainDario @ https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
 flatbuffers==1.12
 gast==0.3.3
 google-auth==1.24.0
@@ -26,8 +28,10 @@ ipykernel==5.4.2
 ipython==7.19.0
 ipython-genutils==0.2.0
 ipywidgets==7.5.1
+jaconv==0.2.4
 jedi==0.17.2
 Jinja2==2.11.2
+joblib==1.0.0
 jsonschema==3.2.0
 jupyter==1.0.0
 jupyter-client==6.1.7
@@ -49,6 +53,7 @@ numpy==1.19.3
 oauthlib==3.1.0
 opt-einsum==3.3.0
 packaging==20.8
+pandas==1.1.5
 pandocfilters==1.4.3
 parso==0.7.1
 pickleshare==0.7.5
@@ -65,6 +70,7 @@ pyperclip==1.8.1
 pyrsistent==0.17.3
 PySide6==6.0.0
 python-dateutil==2.8.1
+pytz==2020.4
 pywin32==300
 pywinpty==0.5.7
 pyzmq==20.0.0
@@ -73,17 +79,23 @@ QtPy==1.9.0
 requests==2.25.1
 requests-oauthlib==1.3.0
 rsa==4.6
+scikit-learn==0.24.0
+scipy==1.5.4
 Send2Trash==1.5.0
 shiboken6==6.0.0
 six==1.15.0
+sklearn==0.0
 tensorboard==2.4.0
 tensorboard-plugin-wit==1.7.0
+tensorflow==2.4.0
 tensorflow-estimator==2.4.0
-tensorflow-gpu==2.4.0
 termcolor==1.1.0
 terminado==0.9.1
 testpath==0.4.4
+tflite-runtime @ https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
+threadpoolctl==2.1.0
 tornado==6.1
+tqdm==4.55.0
 traitlets==5.0.5
 typing-extensions==3.7.4.3
 urllib3==1.26.2
