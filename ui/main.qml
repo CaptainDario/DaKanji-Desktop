@@ -40,7 +40,7 @@ ApplicationWindow {
 
             anchors.centerIn: horizontalCenter
 
-            source: "img/kanji_drawing_aid.png"
+            source: "kanji_drawing_aid.png"
             sourceSize.height: 1024
             sourceSize.width: 1024
             fillMode: Image.PreserveAspectFit
@@ -58,7 +58,7 @@ ApplicationWindow {
 
             padding: 10
 
-            icon.source: "file:///E:/projects/kanji-recognizer/img/clear.png"
+            icon.source: "clear.png"
 
             onClicked: {
                canvas.points = new Array(0)

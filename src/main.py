@@ -27,6 +27,6 @@ if __name__ == "__main__":
     #set the canvas object reference
     ctx.setContextProperty("python_canvas", python_canvas)
 
-    engine.load("main.qml")
+    engine.load(os.path.join("ui", "main.qml"))
 
     sys.exit(app.exec_())
