@@ -148,3 +148,6 @@ papers/ANeuralFrameworkForOnlineRecognitionOfHandwrittenKanjiCharacters.pdf
 papers/OnlineHandwrittenKanjiRecognitionBasedonInter-strokeGrammar.pdf
 papers/RecognizingHandwrittenJapaneseCharactersUsingDeepConvolutionalNeuralNetworks.pdf
 model/tf/kanji_only/float16/error.txt
+
+# keras models
+*.hdf5
