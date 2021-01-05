@@ -15,7 +15,7 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
     
     # connect the QML with python
-    ui = UI(engine.rootContext())
+    ui = Ui(engine.rootContext())
     
     # setup and load QML
     engine.load(os.path.join("ui", "main.qml"))
