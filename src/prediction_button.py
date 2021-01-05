@@ -5,45 +5,36 @@ import pyperclip
 from PySide6 import QtCore
 
 class PredictionButton(QtCore.QObject):
+    """ 
+
+    Attributes:
+        _character (str) : The character which is currently being showed on this button.
+    """
+
+    character_changed = QtCore.Signal(str)
 
     def __init__(self, character):
         QtCore.QObject.__init__(self)
-        self.character = character
+        self._character = character
 
-    def generate_random_hanzi(self) -> str:
-        """Generates a random chinese character.
-            This is a placeholder until for developing the UI while no CNN is available.
+    def __str__(self):
+        return self.character
+    
+    
+    @QtCore.Property(str, notify=character_changed)
+    def character(self):
+        return self._character
 
-        Returns:
-            str: The randomly generated chinese character.
-        """
-        
-        random_char = ""
+    @character.setter
+    def character(self, char):
+        self._character = char
+        self.character_changed.emit(char)
 
-        common, rare = range(0x4e00, 0xa000), range(0x3400, 0x4e00)
-        chars = list(map(chr, common))
-        random_char = chars[random.randint(0, len(chars))]
-
-        return random_char
-
-
-    @QtCore.Slot(result=str)
-    def button_pressed(self) -> str:
+    @QtCore.Slot()
+    def button_pressed(self):
         """This method gets called everytime a user clicks on this "prediction"-button.
-
-        Returns:
-            str: The character which is shown on this button.
         """
 
         pyperclip.copy(self.character)
 
-        #placeholder until CNN prediction is implemented
-        ###
-        self.character = self.generate_random_hanzi()
-        print(self.character)
-        return self.character
-        ###
-
-    def __str__(self):
-        return self.character
 
