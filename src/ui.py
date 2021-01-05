@@ -38,3 +38,30 @@ class UI(QtCore.QObject):
         for i in range(self.pred_count):
             name = "prediction_button_" + str(i + 1)
             self.context.setContextProperty(name, self.prediction_btns[i])
+
+
+    @QtCore.Slot(str)
+    def predict_from_image(self, data_uri_image):
+        """ This method gets called everytime the user finished drawing a stroke on the canvas.
+
+        Args:
+            data_uri_image (str): The data_uri which contains the image from the QMLCanvas.
+        """
+        
+        # convert the image from data_uri to PIL.Image
+        img_base_64 = urllib.request.urlopen(data_uri_image)
+        image = Image.open(img_base_64.file)
+
+        # check that image is not empty
+        if(image.getbbox()):
+            image = image.resize(size=(64, 64), resample=Image.ANTIALIAS, reducing_gap=2.0)
+
+            # convert image to np.array and make it grayscale
+            image = np.array(image).astype("float32")
+        
+            # 'convert' image to grayscale and normalize between (0, 1)
+            image = image[..., -1]
+            image[image > 50] = 255
+            image = image / image.max()
+
+            image = image.reshape(1, 64, 64, 1)
