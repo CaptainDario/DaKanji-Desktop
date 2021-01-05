@@ -11,6 +11,18 @@ from predictor import Predictor
 
 
 class Ui(QtCore.QObject):
+    """ A Bridge class between UML and python.
+
+    Attributes:
+        context                (QQmlContext) : The QQmlContext of the application.
+        pred_count                     (int) : How many of the likeliest
+                                               predictions should be used.
+        predictor                (Predictor) : Predictor instace which
+                                               runs the inference tasks.
+        prediction_btns ([PredictionButton]) : List with PredictionButton
+                                               instances connected to the
+                                               QML buttons.
+    """
 
 
     prediction_changed = QtCore.Signal(str)
@@ -21,14 +33,13 @@ class Ui(QtCore.QObject):
         self.context      = context
         self.pred_count   = 10
         self.predictor    = Predictor()
-        
         self.prediction_btns = [PredictionButton("") for i in range(10)]
 
         self.connect_py_and_qml()
 
 
     def connect_py_and_qml(self) -> None:
-        """ Con
+        """ Connect the python objects and attributes with QML.
         """
         
         #connect the canvas
@@ -42,7 +53,13 @@ class Ui(QtCore.QObject):
 
     @QtCore.Slot(str)
     def predict_from_image(self, data_uri_image):
-        """ This method gets called everytime the user finished drawing a stroke on the canvas.
+        """ Predict the character on the QML Canvas.
+        
+        First converts the "data_uri"-image to a numpy array.
+        Afterwards runs inference on the tf_lite model and saves predictions.
+
+        Note:
+            This method gets called everytime the user finished drawing a stroke on the canvas.
 
         Args:
             data_uri_image (str): The data_uri which contains the image from the QMLCanvas.
