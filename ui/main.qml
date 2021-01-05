@@ -162,7 +162,7 @@ ApplicationWindow {
                     }
                     canvas.undoLastStroke = false
                     //send the new image to python
-                    python_canvas.get_current_image(canvas.toDataURL())
+                    ui.predict_from_image(canvas.toDataURL())
                 }
             }
 
@@ -178,7 +178,7 @@ ApplicationWindow {
                     canvas.requestPaint()
                 }
                 onReleased: {
-                    python_canvas.get_current_image(canvas.toDataURL())
+                    ui.predict_from_image(canvas.toDataURL())
                 } 
             }
         }
@@ -200,98 +200,96 @@ ApplicationWindow {
 
             property int button_size: 50
 
-
+            // the buttons from which the user can copy the predictions
             CustomMaterialButton {
-                id: "button_selection_0"
-
-                text: ""
+                text: prediction_button_1.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_0.button_pressed() }
+                onClicked: { prediction_button_1.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_2.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_1.button_pressed() }
+                onClicked: { prediction_button_2.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_3.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_2.button_pressed() }
+                onClicked: { prediction_button_3.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_4.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_3.button_pressed() }
+                onClicked: { prediction_button_4.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_5.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_4.button_pressed() }
+                onClicked: { prediction_button_5.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_6.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_5.button_pressed() }
+                onClicked: { prediction_button_6.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_7.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_6.button_pressed() }
+                onClicked: { prediction_button_7.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_8.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_7.button_pressed() }
+                onClicked: { prediction_button_8.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_9.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_8.button_pressed() }
+                onClicked: { prediction_button_9.button_pressed() }
             }
             CustomMaterialButton{
-                text: ""
+                text: prediction_button_10.character
                 font.pixelSize: selection_grid.button_size - 5
                 
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { text = predictionButton_9.button_pressed() }
+                onClicked: { prediction_button_10.button_pressed() }
             }
         }
     }
