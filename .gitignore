@@ -140,9 +140,6 @@ dataset
 image.png
 image.jpg
 
-# gimp files
-*.xcf
-
 # papers
 papers/ANeuralFrameworkForOnlineRecognitionOfHandwrittenKanjiCharacters.pdf
 papers/OnlineHandwrittenKanjiRecognitionBasedonInter-strokeGrammar.pdf
