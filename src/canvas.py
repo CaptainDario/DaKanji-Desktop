@@ -1,17 +1,19 @@
 import urllib.request
+import pickle
+import os
 
-from matplotlib import pyplot as plt
-import  numpy as np
+import numpy as np
 from PIL import Image
 
 from PySide6 import QtCore
 
+import tflite_runtime.interpreter as tflite
 
 
 class Canvas(QtCore.QObject):
     
     image = None
-    
+
     def __init__(self):
         QtCore.QObject.__init__(self)
 
@@ -52,11 +54,25 @@ class Canvas(QtCore.QObject):
             image = image.resize(size=(64, 64), resample=Image.ANTIALIAS, reducing_gap=2.0)
 
             #convert image to np.array and make it grayscale
-            image = np.array(image)
+            image = np.array(image).astype("float32")
         
             # 'convert' image to grayscale and normalize between (0, 1)
             image = image[..., -1]
             image[image > 50] = 255
             image = image / image.max()
 
+            image = image.reshape(1, 64, 64, 1)
+
             print("Image converted in python")
+
+            self.kanji_interpreter.set_tensor(self.input_details[0]["index"], image)
+            self.kanji_interpreter.invoke()
+            output_data = self.kanji_interpreter.get_tensor(self.output_details[0]["index"])
+
+            out_np = np.array(output_data)
+
+            #print the 10 most confident predictions
+            for i in range(10):
+                print("confidence:", out_np.max(), " --> ", self.label_binarizer.inverse_transform(out_np))
+
+                out_np[out_np.max() == out_np] = 0.0
