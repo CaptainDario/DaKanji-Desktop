@@ -4,7 +4,6 @@ import QtQuick.Window 2.2
 import QtQuick.Controls.Material 2.3
 
 
-
 ApplicationWindow {
 	id: mainWindow
     title: "Kanji recognizer"
@@ -56,9 +55,17 @@ ApplicationWindow {
             width : mainWindow.menu_button_size
             height: mainWindow.menu_button_size
 
-            padding: 10
+            padding: 0
 
-            icon.source: "clear.png"
+            Image {
+                source: "clear.png"
+
+                x: 3
+                y: 3
+
+                width: parent.width - x*2
+                height: parent.height - y*2
+            }
 
             onClicked: {
                canvas.points = new Array(0)
@@ -70,7 +77,7 @@ ApplicationWindow {
         Button{
             id: "button_undo"
 
-            x: canvas.width + canvas.x - 2*mainWindow.menu_button_size
+            x: canvas.width + canvas.x - 2*mainWindow.menu_button_size - 5
             y: canvas.y - mainWindow.menu_button_size 
 
             width : mainWindow.menu_button_size
@@ -78,7 +85,15 @@ ApplicationWindow {
 
             padding: 10
 
-            icon.source: "file:///E:/projects/kanji-recognizer/img/undo.png"
+            Image {
+                source: "undo.png"
+                
+                x: 3
+                y: 3
+
+                width: parent.width - x*2
+                height: parent.height - y*2
+            }
 
             onClicked: {
                 canvas.undoLastStroke = true
