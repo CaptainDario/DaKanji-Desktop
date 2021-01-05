@@ -15,6 +15,26 @@ class Canvas(QtCore.QObject):
     def __init__(self):
         QtCore.QObject.__init__(self)
 
+        self.init_tf_lite_model()
+        self.init_label_binarizer()
+
+    def init_tf_lite_model(self):
+
+        path_to_model = r"E:\projects\DaKanjiRecognizer\model\tf\kanji_only\model.tflite"
+        self.kanji_interpreter = tflite.Interpreter(model_path=path_to_model)
+        self.kanji_interpreter.allocate_tensors()
+
+        self.input_details = self.kanji_interpreter.get_input_details()
+        self.output_details = self.kanji_interpreter.get_output_details()
+
+    def init_label_binarizer(self):
+
+        print(os.getcwd())
+
+        with open(os.path.join("data", "labels"), "rb") as f:
+            self.label_binarizer = pickle.load(f)
+
+
     @QtCore.Slot(str)
     def get_current_image(self, data_uri_image):
         """ This method gets called everytime the user finished drawing a stroke on the canvas.
