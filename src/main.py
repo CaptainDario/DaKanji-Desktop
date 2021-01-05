@@ -1,8 +1,9 @@
 import sys
 import os
+import hidden_import
 
-from PySide6.QtWidgets import QApplication
-from PySide6.QtQml import QQmlApplicationEngine
+from PySide2.QtWidgets import QApplication
+from PySide2.QtQml import QQmlApplicationEngine
 
 from ui import Ui
 

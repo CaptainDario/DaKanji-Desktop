@@ -1,8 +1,6 @@
-import random
-
 import pyperclip
 
-from PySide6 import QtCore
+from PySide2 import QtCore
 
 class PredictionButton(QtCore.QObject):
     """ 

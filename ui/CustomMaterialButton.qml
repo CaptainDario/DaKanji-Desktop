@@ -34,11 +34,12 @@
 **
 ****************************************************************************/
 
-import QtQuick
-import QtQuick.Templates as T
-import QtQuick.Controls.impl
-import QtQuick.Controls.Material
-import QtQuick.Controls.Material.impl
+import QtQuick 2.1
+import QtQuick.Controls 2.4
+import QtQuick.Templates 2.0 as T
+import QtQuick.Controls.impl 2.4
+import QtQuick.Controls.Material 2.3
+import QtQuick.Controls.Material.impl 2.0
 
 Button {
     id: control

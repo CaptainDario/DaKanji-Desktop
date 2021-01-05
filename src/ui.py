@@ -2,20 +2,20 @@ import urllib.request
 
 import numpy as np
 from PIL import Image
-import PySide6
-from PySide6 import QtCore
+import PySide2
+from PySide2 import QtCore
 
 from prediction_button import PredictionButton
 from predictor import Predictor
 
 
 
-class UI(QtCore.QObject):
+class Ui(QtCore.QObject):
 
 
     prediction_changed = QtCore.Signal(str)
 
-    def __init__(self, context : PySide6.QtQml.QQmlContext) -> None:
+    def __init__(self, context : PySide2.QtQml.QQmlContext) -> None:
         QtCore.QObject.__init__(self)
         
         self.context      = context

@@ -24,7 +24,7 @@ ApplicationWindow {
 
         width: mainWindow.width + 1
         height: mainWindow.height + 1
-        color: "Grey" 
+        color: "#0E0E52" 
 
         //drawing aid BG image
         Image {
@@ -37,7 +37,7 @@ ApplicationWindow {
             width: parent.width / 100 * 50
             height: parent.height / 100 * 50
 
-            anchors.centerIn: horizontalCenter
+            //anchors.centerIn: horizontalCenter
 
             source: "kanji_drawing_aid.png"
             sourceSize.height: 1024
@@ -46,7 +46,7 @@ ApplicationWindow {
         }
 
         //Canvas clear button
-        Button{
+        CustomMaterialButton{
             id: "button_clear"
 
             x: canvas.width + canvas.x - mainWindow.menu_button_size
@@ -74,7 +74,7 @@ ApplicationWindow {
             }
         }        
         //Undo last stroke button
-        Button{
+        CustomMaterialButton{
             id: "button_undo"
 
             x: canvas.width + canvas.x - 2*mainWindow.menu_button_size - 5
@@ -87,7 +87,7 @@ ApplicationWindow {
 
             Image {
                 source: "undo.png"
-                
+
                 x: 3
                 y: 3
 
@@ -115,7 +115,7 @@ ApplicationWindow {
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 3 - height / 2
 
-            property var color: "black"
+            property var color: "white"
 
             // all points which have been drawn
             // [[all points of Line_0], [all points of Line_1]]
@@ -126,7 +126,7 @@ ApplicationWindow {
             onPaint: {
                 //setup path
                 var ctx = getContext('2d')
-                ctx.strokeStyle = "black"
+                ctx.strokeStyle = color
                 ctx.lineWidth = 2
 
                 //paint
