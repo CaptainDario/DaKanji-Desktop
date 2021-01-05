@@ -44,12 +44,20 @@ First you need to install all packages from the 'requirements_rel.txt':
 python -m pip install -r requirements_rel.txt
 ```
 Because the training of the CNN heavily relies on my custom python package 'etl_data_reader' you have to install it too. <br/>
-To do this download the latest wheel from the [etl_data_reader repo](https://github.com/CaptainDario/ETL_data_reader/releases).
-Now you can install the wheel by running:
+First the wheel package has to be installed:
 
 ```
 python -m pip install wheel
+```
+
+and afterwards either:
+* Download the latest wheel from the [etl_data_reader repo](https://github.com/CaptainDario/ETL_data_reader/releases) and install it:
+```
 python -m pip install path\to\the\downloaded\etl_data_reader.whl
+```
+* or download it with pip:
+```
+python-m pip install https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
 ```
 
 How the network was setup and developed can be seen [in this jupyter notebook](./jupyter/DaKanjiRecognizer.ipynb).
