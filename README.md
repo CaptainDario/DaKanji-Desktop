@@ -75,7 +75,7 @@ python -m pip install path\to\the\downloaded\etl_data_reader.whl
 python-m pip install https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
 ```
 
-How the network was setup and developed can be seen [in this jupyter notebook](./docs/DaKanjiRecognizer.html).
+How the network was setup and developed can be seen [in this jupyter notebook](https://captaindario.github.io/DaKanjiRecognizer/DaKanjiRecognizer.html).
 
 ## PyInstaller
 For freezing the app with PyInstaller you have to run the 'build'-script in the main folder:
