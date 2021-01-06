@@ -24,8 +24,10 @@ def subprocess_cmd(command):
 if __name__ == "__main__":
     
     build_command_folder = ""
+    build_command_file = ""
 
-    name_folder = ""
+    name_folder = str(about.full_id) + "_folder"
+    name_file   = str(about.full_id) + "_file"
 
     activate_venv_cmd = ""
 
@@ -35,22 +37,23 @@ if __name__ == "__main__":
 
         data =  "--add-data .\\ui;ui "
         data += "--add-data .\\data;data "
+        data += "--add-data .\\icons;icons "
 
         path = "--distpath=.\\build\\windows"
 
-        icon = "--icon .\\icons\\icon.ico"
+        icon = "--icon=.\\icons\\icon.ico"
 
-        name_folder = str(about.full_id) + "_folder"
+        additional = "--noconfirm --noconsole"
 
-        build_command_folder = " ".join(["pyinstaller", data, path, "--name=" + name_folder, "--hidden-import PySide2", "--clean", icon, "--noconfirm", "--noconsole", ".\src\main.py"])
+        build_command_folder = " ".join(["pyinstaller", data, path, "--name=" + name_folder, "--clean", icon, additional, ".\src\main.py"])
+        build_command_file   = " ".join(["pyinstaller", data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, ".\src\main.py"])
     else:
         print("OS on which you are trying to build is not configured.")
         print("Please add a build configuration and submit a pull request: " + about.pull_url)
     
     
-    print(build_command_folder)
-
     # --- build folder-exe
+    print(build_command_folder)
     subprocess.call(activate_venv_cmd + " &&" + build_command_folder)
     #remove spec
     os.remove(name_folder + ".spec")
@@ -58,3 +61,10 @@ if __name__ == "__main__":
     shutil.rmtree(os.path.join("build", name_folder))
 
 
+    # --- build onefile-exe
+    print(build_command_file)
+    subprocess.call(activate_venv_cmd + " &&" + build_command_file)
+    #remove spec
+    os.remove(name_file + ".spec")
+    #remove temp folder
+    shutil.rmtree(os.path.join("build", name_file))
