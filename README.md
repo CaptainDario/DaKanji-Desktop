@@ -20,6 +20,9 @@ That's it!
 
 ### Running from source
 
+**Note: Only Windows (10) is currently being supported.**
+**If you want to use this app on MacOS or UNIX try to run the code from source (untested).**
+
 Running the application from source is a little bit harder because you have to install all the necessary packages.<br/>
 You can install all packages from the 'requirements_rel.txt' (it is recommended to do this in an separate environment):
 
