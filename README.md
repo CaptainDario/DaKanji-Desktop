@@ -1,3 +1,4 @@
+# DaKanjiRecognizer
 <img src="./media/social_preview.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
 
 ## What is this?
@@ -35,6 +36,10 @@ Now you should be able to run the application with:
 python .\src\main.py
 ```
 
+## Usage
+Draw a character and the app tries to classify it.
+The predictions can be copied by clicking on the buttons.
+
 
 ## Development Notes
 
@@ -70,10 +75,16 @@ python -m pip install path\to\the\downloaded\etl_data_reader.whl
 python-m pip install https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
 ```
 
-How the network was setup and developed can be seen [in this jupyter notebook](./jupyter/DaKanjiRecognizer.ipynb).
+How the network was setup and developed can be seen [in this jupyter notebook](./docs/DaKanjiRecognizer.html).
+
+## PyInstaller
+For freezing the app with PyInstaller you have to run the 'build'-script in the main folder:
+```
+.venv_rel\Scripts\python.exe build.py
+```
 
 ## Next steps and ideas
-* Rewrite the python code in c++ to build for desktop, mobile and web.
+* Rewrite the python code in c++ or flutter to build for desktop, mobile and web.
 
 ## Credits
 The data on which the neural network was trained on was kindly provided by [ETL Character Database](http://etlcdb.db.aist.go.jp/obtaining-etl-character-database) <br/><br/>
