@@ -6,6 +6,7 @@ import sklearn      # not directly accessed but loaded via pickle
 
 import tflite_runtime.interpreter as tflite
 
+from pyinstaller import resource_path
 
 
 class Predictor():
@@ -31,7 +32,7 @@ class Predictor():
         """ Load the pickled LabelBinarizer from 'data'-folder.
         """
 
-        with open(os.path.join("data", "labels"), "rb") as f:
+        with open(resource_path(os.path.join("data", "labels")), "rb") as f:
             self.label_binarizer = pickle.load(f)
 
     def init_tf_lite_model(self):
@@ -39,7 +40,7 @@ class Predictor():
         """
 
         # load model
-        path_to_model = os.path.join("data", "model.tflite")
+        path_to_model = resource_path(os.path.join("data", "model.tflite"))
         self.kanji_interpreter = tflite.Interpreter(model_path=path_to_model)
         self.kanji_interpreter.allocate_tensors()
 

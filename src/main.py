@@ -1,6 +1,6 @@
 import sys
 import os
-import hidden_import
+import pyinstaller 
 
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     ui = Ui(engine.rootContext())
     
     # setup and load QML
-    engine.load(os.path.join("ui", "main.qml"))
-    app.setWindowIcon(QIcon("./icons/icon_eye_only.ico"))
+    engine.load(pyinstaller.resource_path(os.path.join("ui", "main.qml")))
+    app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon_eye_only.ico"))))
 
     sys.exit(app.exec_())
