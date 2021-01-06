@@ -1,1 +1,0 @@
-from scipy.spatial.transform import _rotation_groups
