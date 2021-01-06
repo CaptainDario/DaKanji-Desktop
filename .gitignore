@@ -105,6 +105,7 @@ celerybeat.pid
 .env
 .venv
 .venv_dev
+.venv_rel
 env/
 venv/
 ENV/
@@ -129,15 +130,21 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#exclude vs studio code files
+# vs studio code files
 .vscode
 
-#exculde data set
+# data set
 dataset
 
-#exclude debuging images
+# debuging images
 image.png
 image.jpg
 
-#exclude gimp files
-*.xcf
+# papers
+papers/ANeuralFrameworkForOnlineRecognitionOfHandwrittenKanjiCharacters.pdf
+papers/OnlineHandwrittenKanjiRecognitionBasedonInter-strokeGrammar.pdf
+papers/RecognizingHandwrittenJapaneseCharactersUsingDeepConvolutionalNeuralNetworks.pdf
+model/tf/kanji_only/float16/error.txt
+
+# keras models
+*.hdf5

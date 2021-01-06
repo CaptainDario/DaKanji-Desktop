@@ -1,0 +1,11 @@
+joblib==1.0.0
+numpy==1.19.3
+Pillow==8.1.0
+pyperclip==1.8.1
+PySide6==6.0.0
+scikit-learn==0.24.0
+scipy==1.6.0
+shiboken6==6.0.0
+sklearn==0.0
+tflite-runtime @ https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
+threadpoolctl==2.1.0

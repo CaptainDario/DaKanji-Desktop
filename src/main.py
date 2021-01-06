@@ -1,31 +1,26 @@
 import sys
 import os
+import pyinstaller 
 
-from PySide6.QtWidgets import QApplication
-from PySide6.QtQml import QQmlApplicationEngine
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QApplication
+from PySide2.QtQml import QQmlApplicationEngine
 
-from kanji import Kanji
-from canvas import Canvas
+from ui import Ui
 
-kanjis = []
-nr_kanji = 10
-python_canvas = Canvas()
+
 
 if __name__ == "__main__":
 
+    # init app
     app = QApplication(sys.argv)
-
     engine = QQmlApplicationEngine()
 
-    ctx = engine.rootContext()
-    #set kanji object references
-    for i in range(nr_kanji):
-        kanjis.append(Kanji(""))
-        ctx.setContextProperty("kanji_" + str(i), kanjis[i])
-
-    #set the canvas object reference
-    ctx.setContextProperty("python_canvas", python_canvas)
-
-    engine.load("main.qml")
+    # connect QML and python
+    ui = Ui(engine.rootContext())
+    
+    # setup and load QML
+    engine.load(pyinstaller.resource_path(os.path.join("ui", "main.qml")))
+    app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon_eye_only.ico"))))
 
     sys.exit(app.exec_())
