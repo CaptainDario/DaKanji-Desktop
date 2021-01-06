@@ -1,5 +1,12 @@
-# kanji-recognizer
-A simple Qt and Tensorflow app which classifies kanji characters the user has hand drawn.
+<img src="./media/social_preview.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
+
+## What is this?
+
+A simple app which can predict japanese kanji characters which were drawn by hand.
+The predictions can than be copied and used elsewhere. <br/>
+Currently there ~3000 kanji characters supported.
+
+<img src="./media/preview.gif" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
 
 ## Getting started
 
