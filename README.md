@@ -7,7 +7,7 @@ A simple app which can predict japanese kanji characters which were drawn by han
 The predictions can than be copied and used elsewhere. <br/>
 Currently there ~3000 kanji characters supported.
 
-<img src="./media/preview.gif" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
+<img src="./media/preview.gif" style="display:block;margin-left:auto;margin-right:auto;" width="35%"/>
 
 ## Getting started
 
