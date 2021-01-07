@@ -1,4 +1,5 @@
 absl-py==0.11.0
+altgraph==0.17
 argon2-cffi==20.1.0
 astunparse==1.6.3
 async-generator==1.10
@@ -17,6 +18,7 @@ defusedxml==0.6.0
 entrypoints==0.3
 etl-data-reader-CaptainDario @ https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
 flatbuffers==1.12
+future==0.18.2
 gast==0.3.3
 google-auth==1.24.0
 google-auth-oauthlib==0.4.2
@@ -56,6 +58,7 @@ packaging==20.8
 pandas==1.1.5
 pandocfilters==1.4.3
 parso==0.7.1
+pefile==2019.4.18
 pickleshare==0.7.5
 Pillow==8.0.1
 prometheus-client==0.9.0
@@ -65,13 +68,15 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
 Pygments==2.7.3
+pyinstaller-hooks-contrib==2020.11
 pyparsing==2.4.7
 pyperclip==1.8.1
 pyrsistent==0.17.3
-PySide6==6.0.0
+PySide2==5.15.2
 python-dateutil==2.8.1
 pytz==2020.4
 pywin32==300
+pywin32-ctypes==0.2.0
 pywinpty==0.5.7
 pyzmq==20.0.0
 qtconsole==5.0.1
@@ -82,7 +87,7 @@ rsa==4.6
 scikit-learn==0.24.0
 scipy==1.5.4
 Send2Trash==1.5.0
-shiboken6==6.0.0
+shiboken2==5.15.2
 six==1.15.0
 sklearn==0.0
 tensorboard==2.4.0
@@ -92,7 +97,6 @@ tensorflow-estimator==2.4.0
 termcolor==1.1.0
 terminado==0.9.1
 testpath==0.4.4
-tflite-runtime @ https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
 threadpoolctl==2.1.0
 tornado==6.1
 tqdm==4.55.0
