@@ -31,6 +31,22 @@ You can install all packages from the 'requirements_rel.txt' (it is recommended 
 python -m pip install -r requirements_rel.txt
 ```
 
+Afterwards you have to install tensorflow_lite matching your os <br/>
+Windows
+```
+python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
+```
+
+Linux
+```
+python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-linux_x86_64.whl
+```
+
+MacOS
+```
+python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-macosx_10_15_x86_64.whl
+```
+
 Now you should be able to run the application with:
 ```
 python .\src\main.py
