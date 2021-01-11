@@ -19,8 +19,7 @@ Currently there ~3000 kanji characters supported.
 ### Running the exe
 This is the recommended way of running the application. <br/>
 You only have to head over to the [release section](https://github.com/CaptainDario/DaKanjiRecognizer/releases) and download the latest release.
-
-Now you only have to unzip the directory and run the DaKanjiRecognizer.exe in the folder.<br/>
+Unzip it and run the DaKanjiRecognizer executable inside the folder.<br/>
 
 That's it!
 
@@ -106,6 +105,12 @@ For freezing the app with PyInstaller you have to run the 'build'-script in the 
 
 ## Next steps and ideas
 * Rewrite the python code in c++ or flutter to build for desktop, mobile and web.
+
+## Common issues
+* on Ubuntu 20.04 LTS exists a bug in PySide2 and the following command needs to be run to install dependencies:
+```bash
+sudo apt-get install -y libxcb-xinerama0
+```
 
 ## Credits
 The data on which the neural network was trained on was kindly provided by [ETL Character Database](http://etlcdb.db.aist.go.jp/obtaining-etl-character-database) <br/><br/>
