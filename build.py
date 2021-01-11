@@ -73,6 +73,8 @@ if __name__ == "__main__":
         data =  "--add-data ./ui:ui "
         data += "--add-data ./data:data "
         data += "--add-data ./icons:icons "
+        # bug in pyinstaller 4.1 -> can/shoule be removed with next stable release
+        data += "--add-data ./.venv_rel/lib/python3.8/site-packages/PySide2/Qt/plugins:./PySide2/plugins"
 
         path = "--distpath=./build/" + platform.system()
 
