@@ -72,8 +72,6 @@ class Predictor():
             pred = self.label_binarizer.inverse_transform(out_np)
             preds.append(pred[0])
 
-            #print("confidence:", out_np.max(), " --> ", pred)
-
             # 'remove' this prediction from all
             out_np[out_np.max() == out_np] = 0.0
 
