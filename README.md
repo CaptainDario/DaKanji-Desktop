@@ -9,6 +9,11 @@ Currently there ~3000 kanji characters supported.
 
 <img src="./media/preview.gif" style="display:block;margin-left:auto;margin-right:auto;" width="35%"/>
 
+## What the users say:
+* "Your program is like magic! Thank you so much!" - saszai2
+* "Well thank you for this software! It seems to try and guess in a more "guess-y" way than jisho and even Google which is usually pretty good at guessing, and it just saved me today!" - princess_daphie
+* "... I tried the program for the same kanji [some kanji], not only did all of them work but it was able to guess what I was going for before I finished too." - swolenkamel
+
 ## Getting started
 
 ### Running the exe
