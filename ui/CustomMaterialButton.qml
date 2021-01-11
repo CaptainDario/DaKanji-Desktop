@@ -80,6 +80,10 @@ Button {
     }
 
     background: Rectangle {
+        x: 0
+        y: 0
+
+
         implicitWidth: 64
         implicitHeight: control.Material.buttonHeight
 
