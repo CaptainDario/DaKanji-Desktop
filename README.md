@@ -26,28 +26,28 @@ That's it!
 
 ### Running from source
 
-**Note: Only Windows (10) is currently being supported.**
-**If you want to use this app on MacOS or UNIX try to run the code from source (untested).**
+**Note: Windows (10) and Linux (Ubuntu 20.4) is currently being supported.**
+**If you want to use this app on MacOS try to run the code from source (untested).**
 
-Running the application from source is a little bit harder because you have to install all the necessary packages.<br/>
-You can install all packages from the 'requirements_rel.txt' (it is recommended to do this in an separate environment):
+Running the application from source is a little bit harder because you have to install all the necessary packages yourself.<br/>
+You can install all packages from the 'requirements_rel.txt' (it is recommended to do this in a separate environment):
 
 ```
 python -m pip install -r requirements_rel.txt
 ```
 
-Afterwards you have to install tensorflow_lite matching your os <br/>
-Windows
+Afterwards you have to install tensorflow_lite matching your os. <br/>
+Windows:
 ```
 python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
 ```
 
-Linux
+Linux:
 ```
 python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-linux_x86_64.whl
 ```
 
-MacOS
+MacOS:
 ```
 python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-macosx_10_15_x86_64.whl
 ```
