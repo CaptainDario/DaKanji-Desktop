@@ -63,7 +63,7 @@ If the switch in the picture below (highlighted in red) is set to the right,
 pressing the button will copy the kanji to clipboard and open it on [jisho](jisho.org). <br/>
 
 
-![test](media/open_in_jisho_usage.jpg)
+![open_in_jisho_usage.JPG](media/open_in_jisho_usage.JPG)
 
 
 ## Development Notes
