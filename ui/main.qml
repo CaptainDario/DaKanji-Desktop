@@ -183,13 +183,23 @@ ApplicationWindow {
             }
         }
 
+        Switch {
+            id: open_in_jisho_switch
+
+            x: selection_grid.x 
+            y: selection_grid.y - selection_grid.button_size * 4 / 5
+
+            ToolTip.delay:   1000
+            ToolTip.visible: hovered
+            ToolTip.text:    qsTr("Open in jisho.org")
+
+            onClicked: { console.log(open_in_jisho_switch.position)}
+        }
+
         //predicted kanji selection
         Grid {
             id: "selection_grid"
 
-            width:  5 * button_size + 4 * 10
-            height: 2 * button_size + 2 * 10
-            
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height - (height + button_size / 4)
 
