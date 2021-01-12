@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image
 import PySide2
 from PySide2 import QtCore
+from PySide2.QtGui import QClipboard
 
 from prediction_button import PredictionButton
 from predictor import Predictor
@@ -22,18 +23,20 @@ class Ui(QtCore.QObject):
         prediction_btns ([PredictionButton]) : List with PredictionButton
                                                instances connected to the
                                                QML buttons.
+        clipboard               (QClipboard) : The OS's clipboard.
     """
 
 
     prediction_changed = QtCore.Signal(str)
 
-    def __init__(self, context : PySide2.QtQml.QQmlContext) -> None:
+    def __init__(self, clipboard : QClipboard, context : PySide2.QtQml.QQmlContext) -> None:
         QtCore.QObject.__init__(self)
         
-        self.context      = context
-        self.pred_count   = 10
-        self.predictor    = Predictor()
-        self.prediction_btns = [PredictionButton("") for i in range(10)]
+        self.context         = context
+        self.pred_count      = 10
+        self.predictor       = Predictor()
+        self.prediction_btns = [PredictionButton(clipboard) for i in range(10)]
+        self.clipboard       = clipboard
 
         self.connect_py_and_qml()
 

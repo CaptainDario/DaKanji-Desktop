@@ -204,7 +204,7 @@ ApplicationWindow {
             CustomMaterialButton {
                 text: prediction_button_1.character
                 font.pixelSize: selection_grid.button_size - 5
-                
+
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 

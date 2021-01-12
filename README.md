@@ -9,26 +9,46 @@ Currently there ~3000 kanji characters supported.
 
 <img src="./media/preview.gif" style="display:block;margin-left:auto;margin-right:auto;" width="35%"/>
 
+## What the users say:
+* "Your program is like magic! Thank you so much!" - saszai2
+* "Well thank you for this software! It seems to try and guess in a more "guess-y" way than jisho and even Google which is usually pretty good at guessing, and it just saved me today!" - princess_daphie
+* "... I tried the program for the same kanji [some kanji], not only did all of them work but it was able to guess what I was going for before I finished too." - swolenkamel
+
 ## Getting started
 
 ### Running the exe
 This is the recommended way of running the application. <br/>
 You only have to head over to the [release section](https://github.com/CaptainDario/DaKanjiRecognizer/releases) and download the latest release.
-
-Now you only have to unzip the directory and run the DaKanjiRecognizer.exe in the folder.<br/>
+Unzip it and run the DaKanjiRecognizer executable inside the folder.<br/>
 
 That's it!
 
 ### Running from source
 
-**Note: Only Windows (10) is currently being supported.**
-**If you want to use this app on MacOS or UNIX try to run the code from source (untested).**
+**Note: Windows (10) and Linux (Ubuntu 20.4) is currently being supported.**
+**If you want to use this app on MacOS try to run the code from source (untested).**
 
-Running the application from source is a little bit harder because you have to install all the necessary packages.<br/>
-You can install all packages from the 'requirements_rel.txt' (it is recommended to do this in an separate environment):
+Running the application from source is a little bit harder because you have to install all the necessary packages yourself.<br/>
+You can install all packages from the 'requirements_rel.txt' (it is recommended to do this in a separate environment):
 
 ```
 python -m pip install -r requirements_rel.txt
+```
+
+Afterwards you have to install tensorflow_lite matching your os. <br/>
+Windows:
+```
+python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
+```
+
+Linux:
+```
+python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-linux_x86_64.whl
+```
+
+MacOS:
+```
+python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-macosx_10_15_x86_64.whl
 ```
 
 Now you should be able to run the application with:
@@ -85,6 +105,12 @@ For freezing the app with PyInstaller you have to run the 'build'-script in the 
 
 ## Next steps and ideas
 * Rewrite the python code in c++ or flutter to build for desktop, mobile and web.
+
+## Common issues
+* on Ubuntu 20.04 LTS exists a bug in PySide2 and the following command needs to be run to install dependencies:
+```bash
+sudo apt-get install -y libxcb-xinerama0
+```
 
 ## Credits
 The data on which the neural network was trained on was kindly provided by [ETL Character Database](http://etlcdb.db.aist.go.jp/obtaining-etl-character-database) <br/><br/>

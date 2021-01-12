@@ -16,9 +16,11 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
+    clip = app.clipboard()
+
     # connect QML and python
-    ui = Ui(engine.rootContext())
-    
+    ui = Ui(clip, engine.rootContext())
+
     # setup and load QML
     engine.load(pyinstaller.resource_path(os.path.join("ui", "main.qml")))
     app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon_eye_only.ico"))))
