@@ -1,3 +1,4 @@
+import webbrowser
 
 from PySide2 import QtCore
 from PySide2.QtGui import QClipboard
@@ -30,11 +31,14 @@ class PredictionButton(QtCore.QObject):
         self._character = char
         self.character_changed.emit(char)
 
-    @QtCore.Slot()
-    def button_pressed(self):
+    @QtCore.Slot(float)
+    def button_pressed(self, open_in_jisho : float):
         """ Copies the button's character to clipboard
         """
 
         self.clipboard.setText(self.character)
-
+        
+        #open the predicted Kanji in jisho.org if user has selected it
+        if(open_in_jisho == 1):
+            webbrowser.open("https://jisho.org/search/" + self.character + "%23kanji")
 
