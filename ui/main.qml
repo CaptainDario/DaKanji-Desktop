@@ -218,7 +218,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_1.button_pressed() }
+                onClicked: { prediction_button_1.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_2.character
@@ -227,7 +227,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_2.button_pressed() }
+                onClicked: { prediction_button_2.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_3.character
@@ -236,7 +236,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_3.button_pressed() }
+                onClicked: { prediction_button_3.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_4.character
@@ -245,7 +245,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_4.button_pressed() }
+                onClicked: { prediction_button_4.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_5.character
@@ -254,7 +254,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_5.button_pressed() }
+                onClicked: { prediction_button_5.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_6.character
@@ -263,7 +263,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_6.button_pressed() }
+                onClicked: { prediction_button_6.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_7.character
@@ -272,7 +272,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_7.button_pressed() }
+                onClicked: { prediction_button_7.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_8.character
@@ -281,7 +281,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_8.button_pressed() }
+                onClicked: { prediction_button_8.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_9.character
@@ -290,7 +290,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_9.button_pressed() }
+                onClicked: { prediction_button_9.button_pressed(open_in_jisho_switch.position) }
             }
             CustomMaterialButton{
                 text: prediction_button_10.character
@@ -299,7 +299,7 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_10.button_pressed() }
+                onClicked: { prediction_button_10.button_pressed(open_in_jisho_switch.position) }
             }
         }
     }
