@@ -192,8 +192,6 @@ ApplicationWindow {
             ToolTip.delay:   1000
             ToolTip.visible: hovered
             ToolTip.text:    qsTr("Open in jisho.org")
-
-            onClicked: { console.log(open_in_jisho_switch.position)}
         }
 
         //predicted kanji selection
