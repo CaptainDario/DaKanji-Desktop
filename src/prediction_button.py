@@ -39,6 +39,6 @@ class PredictionButton(QtCore.QObject):
         self.clipboard.setText(self.character)
         
         #open the predicted Kanji in jisho.org if user has selected it
-        if(open_in_jisho == 1):
+        if(open_in_jisho == 1 and self.character != ""):
             webbrowser.open("https://jisho.org/search/" + self.character + "%23kanji")
 
