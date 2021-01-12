@@ -6,7 +6,7 @@ import QtQuick.Controls.Material 2.3
 
 ApplicationWindow {
 	id: mainWindow
-    title: "DaKanjiRecognizer - v1.0"
+    title: "DaKanjiRecognizer - v1.1"
 
     minimumWidth : 350
     minimumHeight: 350

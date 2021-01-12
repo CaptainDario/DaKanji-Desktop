@@ -1,6 +1,6 @@
 
 name           = "DaKanjiRecognizer"
-version        = "1.0"
+version        = "1.1"
 release_suffix = ""
 
 full_id = name + "_v" + version + release_suffix
