@@ -58,7 +58,7 @@ python .\src\main.py
 
 ## Usage
 Draw a character and the app tries to classify it.
-The predictions can be copiedameded by clicking on the buttons.<br/> 
+The predictions can be copied by clicking on the buttons.<br/> 
 If the switch in the picture below (highlighted in red) is set to the right,
 pressing the button will copy the kanji to clipboard and open it on [jisho](https://www.jisho.org). <br/>
 
