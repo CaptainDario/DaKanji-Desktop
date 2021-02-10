@@ -72,6 +72,8 @@ First you need to install all packages from the 'requirements.txt':
 python -m pip install -r requirements.txt
 ```
 
+The Machine learning part of this project can be found in [this repository](https://github.com/CaptainDario/DaKanjiRecognizer-ML).
+
 ## PyInstaller
 For freezing the app with PyInstaller you have to run the 'build'-script in the main folder:
 ```
