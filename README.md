@@ -82,6 +82,7 @@ For freezing the app with PyInstaller you have to run the 'build'-script in the 
 
 ## Next steps and ideas
 The next features which will be implemented can be found [here](https://github.com/CaptainDario/DaKanjiRecognizer-Desktop/projects).
+If you want to suggest a new feature feel free to [open a new issue](https://github.com/CaptainDario/DaKanjiRecognizer-Desktop/issues).
 
 ## Common issues
 * on Ubuntu 20.04 LTS exists a bug in PySide2 and the following command needs to be run to install dependencies:
