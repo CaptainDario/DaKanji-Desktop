@@ -1,4 +1,4 @@
-# DaKanjiRecognizer
+# DaKanjiRecognizer Desktop
 <img src="./media/social_preview.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
 
 ## What is this?
