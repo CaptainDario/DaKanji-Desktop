@@ -133,6 +133,7 @@ dmypy.json
 
 # vs studio code files
 .vscode
+.history
 
 # data set
 dataset

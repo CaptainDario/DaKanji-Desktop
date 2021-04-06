@@ -24,7 +24,7 @@ ApplicationWindow {
 
         width: mainWindow.width + 1
         height: mainWindow.height + 1
-        color: "#0E0E52" 
+        color: "#2e2e2e" 
 
         //drawing aid BG image
         Image {

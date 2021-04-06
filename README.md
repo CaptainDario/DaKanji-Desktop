@@ -1,11 +1,11 @@
-# DaKanjiRecognizer
-<img src="./media/social_preview.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
+# DaKanjiRecognizer Desktop
+<img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
 
 ## What is this?
 
-A simple app which can predict japanese kanji characters which were drawn by hand.
+A simple app which can predict Japanese kanji characters which were drawn by hand.
 The predictions can than be copied and used elsewhere. <br/>
-Currently there ~3000 kanji characters supported.
+Currently ~3000 kanji characters are supported.
 
 <img src="./media/preview.gif" style="display:block;margin-left:auto;margin-right:auto;" width="35%"/>
 
@@ -18,7 +18,7 @@ Currently there ~3000 kanji characters supported.
 
 ### Running the exe
 This is the recommended way of running the application. <br/>
-You only have to head over to the [release section](https://github.com/CaptainDario/DaKanjiRecognizer/releases) and download the latest release.
+You only have to head over to the [releases section](https://github.com/CaptainDario/DaKanji-desktop/releases) and download the latest release.
 Unzip it and run the DaKanjiRecognizer executable inside the folder.<br/>
 
 That's it!
@@ -29,13 +29,13 @@ That's it!
 **If you want to use this app on MacOS try to run the code from source (untested).**
 
 Running the application from source is a little bit harder because you have to install all the necessary packages yourself.<br/>
-You can install all packages from the 'requirements_rel.txt' (it is recommended to do this in a separate environment):
+You can install all packages from the 'requirements.txt' (it is recommended to do this in a separate environment):
 
 ```
-python -m pip install -r requirements_rel.txt
+python -m pip install -r requirements.txt
 ```
 
-Afterwards you have to install tensorflow_lite matching your os. <br/>
+Afterwards you have to install tensorflow_lite matching your OS. <br/>
 Windows:
 ```
 python -m pip install https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp38-cp38-win_amd64.whl
@@ -58,58 +58,40 @@ python .\src\main.py
 
 ## Usage
 Draw a character and the app tries to classify it.
-The predictions can be copiedameded by clicking on the buttons.<br/> 
-If the switch in the picture below (highlighted in red) is set to the right,
-pressing the button will copy the kanji to clipboard and open it on [jisho](jisho.org). <br/>
+The predictions can be copied by clicking on the buttons.<br/> 
 
-
-![open_in_jisho_usage.JPG](media/open_in_jisho_usage.JPG)
-
+On the settings page a dictionary can be selected.
+When long pressing a button the prediction will be opened in this dictionary.
 
 ## Development Notes
 
-Python 3.8 and jupyter were used for development.
-
-For development and training the network other packages are necessary than just for executing the application.
-Therefore this project has two different "requirements.txt".
-
-| name | usage |
-|---|---|
-| requirements_rel.txt | All packages which are necessary to run the application from source. |
-| requirements_dev.txt | The packages which are necessary to develop and deploy the application.</br> Includes also the packages necessary to train the network and run the provided Jupyter notebook(s). |
-
-First you need to install all packages from the 'requirements_rel.txt':
+Python 3.8 with Qt (PySide2) were used for development.
+First you need to install all packages from the 'requirements.txt':
 
 ```
-python -m pip install -r requirements_rel.txt
-```
-Because the training of the CNN heavily relies on my custom python package 'etl_data_reader' you have to install it too. <br/>
-First the wheel package has to be installed:
-
-```
-python -m pip install wheel
+python -m pip install -r requirements.txt
 ```
 
-and afterwards either:
-* Download the latest wheel from the [etl_data_reader repo](https://github.com/CaptainDario/ETL_data_reader/releases) and install it:
-```
-python -m pip install path\to\the\downloaded\etl_data_reader.whl
-```
-* or download it with pip:
-```
-python-m pip install https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
-```
+The Machine learning part of this project can be found in [this repository](https://github.com/CaptainDario/DaKanji-ML).
 
-How the network was setup and developed can be seen [in this jupyter notebook](https://captaindario.github.io/DaKanjiRecognizer/DaKanjiRecognizer.html).
-
-## PyInstaller
+## Packaging the application
+### PyInstaller
 For freezing the app with PyInstaller you have to run the 'build'-script in the main folder:
 ```
 .venv_rel\Scripts\python.exe build.py
 ```
+The script automatically detects the platform and outputs an executable for the system.
+
+### Windows Store Specific
+To publish the application in the Microsoft store it needs to be in the .msix format.
+To do this first the app needs to be converted from the PyInstaller executable to an .exe installer. The build script assumes that the `ISCC.exe` of the Inno Setup Compiler is in the path.
+Now with the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) a .msix can be created.
+####
+
 
 ## Next steps and ideas
-* Rewrite the python code in c++ or flutter to build for desktop, mobile and web.
+The next features which will be implemented can be found [here](https://github.com/CaptainDario/DaKanji-Desktop/projects).
+If you want to suggest a new feature feel free to [open a new issue](https://github.com/CaptainDario/DaKanji-Desktop/issues).
 
 ## Common issues
 * on Ubuntu 20.04 LTS exists a bug in PySide2 and the following command needs to be run to install dependencies:
@@ -118,10 +100,5 @@ sudo apt-get install -y libxcb-xinerama0
 ```
 
 ## Credits
-The data on which the neural network was trained on was kindly provided by [ETL Character Database](http://etlcdb.db.aist.go.jp/obtaining-etl-character-database) <br/><br/>
-Papers:<br/>
-* [Recognizing Handwritten Japanese Characters Using Deep Convolutional Neural Networks](http://cs231n.stanford.edu/reports/2016/pdfs/262_Report.pdf) <br/>
-* [A neural framework for online recognition of handwritten Kanji characters](https://www.researchgate.net/publication/327893142_A_neural_framework_for_online_recognition_of_handwritten_Kanji_characters) <br/>
-* [Online Handwritten Kanji Recognition Based on Inter-stroke Grammar](https://www.researchgate.net/publication/4288187_Online_Handwritten_Kanji_Recognition_Based_on_Inter-stroke_Grammar) <br/><br/>
   
 Icons were taken from the [material icon set](https://material.io/resources/icons/?style=baseline).
