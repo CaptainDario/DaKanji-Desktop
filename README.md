@@ -1,4 +1,4 @@
-# DaKanjiRecognizer Desktop
+# DaKanji-Desktop
 <img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
 
 ## What is this?
@@ -19,7 +19,7 @@ Currently ~3000 kanji characters are supported.
 ### Running the exe
 This is the recommended way of running the application. <br/>
 You only have to head over to the [releases section](https://github.com/CaptainDario/DaKanji-desktop/releases) and download the latest release.
-Unzip it and run the DaKanjiRecognizer executable inside the folder.<br/>
+Unzip it and run the DaKanji executable inside the folder.<br/>
 
 That's it!
 
