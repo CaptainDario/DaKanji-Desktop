@@ -1,4 +1,4 @@
-# DaKanjiRecognizer
+# DaKanji-Desktop
 <img src="./media/social_preview.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
 
 ## What is this?
@@ -18,8 +18,8 @@ Currently there ~3000 kanji characters supported.
 
 ### Running the exe
 This is the recommended way of running the application. <br/>
-You only have to head over to the [release section](https://github.com/CaptainDario/DaKanjiRecognizer/releases) and download the latest release.
-Unzip it and run the DaKanjiRecognizer executable inside the folder.<br/>
+You only have to head over to the [release section](https://github.com/CaptainDario/DaKanji/releases) and download the latest release.
+Unzip it and run the DaKanji executable inside the folder.<br/>
 
 That's it!
 
@@ -100,7 +100,7 @@ python -m pip install path\to\the\downloaded\etl_data_reader.whl
 python-m pip install https://github.com/CaptainDario/ETL_data_reader/releases/download/1.0/etl_data_reader_CaptainDario-1.0-py3-none-any.whl
 ```
 
-How the network was setup and developed can be seen [in this jupyter notebook](https://captaindario.github.io/DaKanjiRecognizer/DaKanjiRecognizer.html).
+How the network was setup and developed can be seen [in this jupyter notebook](https://captaindario.github.io/DaKanji/DaKanjiRecognizer.html).
 
 ## PyInstaller
 For freezing the app with PyInstaller you have to run the 'build'-script in the main folder:
