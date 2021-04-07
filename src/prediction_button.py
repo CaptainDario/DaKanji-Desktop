@@ -31,14 +31,22 @@ class PredictionButton(QtCore.QObject):
         self._character = char
         self.character_changed.emit(char)
 
-    @QtCore.Slot(float)
-    def button_pressed(self, open_in_jisho : float):
+    @QtCore.Slot()
+    def button_pressed(self):
         """ Copies the button's character to clipboard
         """
 
         self.clipboard.setText(self.character)
         
-        #open the predicted Kanji in jisho.org if user has selected it
-        if(open_in_jisho == 1 and self.character != ""):
+        if (self.clipboard.supportsSelection()): 
+            self.clipboard.setText(self.character, QClipboard.Selection)
+        
+    
+    @QtCore.Slot()
+    def button_long_pressed(self):
+        """ Opens the character in the dictionary of choice.
+        """
+
+        if(self.character != ""):
             webbrowser.open("https://jisho.org/search/" + self.character + "%23kanji")
 
