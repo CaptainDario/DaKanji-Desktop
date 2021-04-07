@@ -183,17 +183,6 @@ ApplicationWindow {
             }
         }
 
-        Switch {
-            id: open_in_jisho_switch
-
-            x: selection_grid.x 
-            y: selection_grid.y - selection_grid.button_size * 4 / 5
-
-            ToolTip.delay:   1000
-            ToolTip.visible: hovered
-            ToolTip.text:    qsTr("Open in jisho.org")
-        }
-
         //predicted kanji selection
         Grid {
             id: "selection_grid"
@@ -216,7 +205,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_1.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_1.button_pressed()
+                    if(prediction_button_1.character != ""){
+                        popup_1.open()
+                    }
+                    popup_1_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_1.button_long_pressed()
+                }
+                Popup {
+                    id: popup_1
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_1.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_1_timer
+                    interval: 1000
+                    onTriggered: popup_1.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_2.character
@@ -225,7 +253,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_2.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_2.button_pressed()
+                    if(prediction_button_2.character != ""){
+                        popup_2.open()
+                    }
+                    popup_2_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_2.button_long_pressed()
+                }
+                Popup {
+                    id: popup_2
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_2.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_2_timer
+                    interval: 1000
+                    onTriggered: popup_2.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_3.character
@@ -234,7 +301,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_3.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_3.button_pressed()
+                    if(prediction_button_3.character != ""){
+                        popup_3.open()
+                    }
+                    popup_3_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_3.button_long_pressed()
+                }
+                Popup {
+                    id: popup_3
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_3.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_3_timer
+                    interval: 1000
+                    onTriggered: popup_3.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_4.character
@@ -243,7 +349,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_4.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_4.button_pressed()
+                    if(prediction_button_4.character != ""){
+                        popup_4.open()
+                    }
+                    popup_4_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_4.button_long_pressed()
+                }
+                Popup {
+                    id: popup_4
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_4.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_4_timer
+                    interval: 1000
+                    onTriggered: popup_4.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_5.character
@@ -252,7 +397,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_5.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_5.button_pressed()
+                    if(prediction_button_5.character != ""){
+                        popup_5.open()
+                    }
+                    popup_5_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_5.button_long_pressed()
+                }
+                Popup {
+                    id: popup_5
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_5.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_5_timer
+                    interval: 1000
+                    onTriggered: popup_5.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_6.character
@@ -261,7 +445,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_6.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_6.button_pressed()
+                    if(prediction_button_6.character != ""){
+                        popup_6.open()
+                    }
+                    popup_6_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_6.button_long_pressed()
+                }
+                Popup {
+                    id: popup_6
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_6.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_6_timer
+                    interval: 1000
+                    onTriggered: popup_6.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_7.character
@@ -270,7 +493,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_7.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_7.button_pressed()
+                    if(prediction_button_7.character != ""){
+                        popup_7.open()
+                    }
+                    popup_7_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_7.button_long_pressed()
+                }
+                Popup {
+                    id: popup_7
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_7.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_7_timer
+                    interval: 1000
+                    onTriggered: popup_7.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_8.character
@@ -279,7 +541,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_8.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_8.button_pressed()
+                    if(prediction_button_8.character != ""){
+                        popup_8.open()
+                    }
+                    popup_8_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_8.button_long_pressed()
+                }
+                Popup {
+                    id: popup_8
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_8.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_8_timer
+                    interval: 1000
+                    onTriggered: popup_8.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_9.character
@@ -288,7 +589,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_9.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_9.button_pressed()
+                    if(prediction_button_9.character != ""){
+                        popup_9.open()
+                    }
+                    popup_9_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_9.button_long_pressed()
+                }
+                Popup {
+                    id: popup_9
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_9.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_9_timer
+                    interval: 1000
+                    onTriggered: popup_9.close()
+                }
             }
             CustomMaterialButton{
                 text: prediction_button_10.character
@@ -297,7 +637,46 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { prediction_button_10.button_pressed(open_in_jisho_switch.position) }
+                onClicked: { 
+                    prediction_button_10.button_pressed()
+                    if(prediction_button_10.character != ""){
+                        popup_10.open()
+                    }
+                    popup_10_timer.start()
+                }
+                onPressAndHold: {
+                    prediction_button_10.button_long_pressed()
+                }
+                Popup {
+                    id: popup_10
+
+                    parent: Overlay.overlay
+
+                    x: 0 
+                    y: mainWindow.height - height
+                    width: mainWindow.width
+                    height: 50
+                    contentWidth: mainWindow.width
+
+                    contentItem: Text {
+                        text: "Copied " + prediction_button_10.character + " to clipboard"
+                    }
+                    enter: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 640; to: 590
+                        }
+                    }
+                    exit: Transition {
+                        NumberAnimation { 
+                            property: "y"; from: 590; to: 640
+                        }
+                    }
+                }
+                Timer{
+                    id: popup_10_timer
+                    interval: 1000
+                    onTriggered: popup_10.close()
+                }
             }
         }
     }
