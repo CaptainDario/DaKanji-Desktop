@@ -1,21 +1,24 @@
 # Da Kanji - Changelog
 
 ## v 1.2 - kaizen
-This release mainly includes minor tweaks and improvements.
+This release includes many tweaks and improvements.
 
 **New Features:**
 * MacOS executable
 * the dictionary (URL) for character lookup can now be user defined
 * Added dark/light theme
+* show a copied to clipboard message
 
 **Changes:**
 * changed background color
 * The machine learning part was moved to separate repository
 * long press opens prediction in dictionary
 * Added LICENSE
+* drastically reduced dependencies
+* All packages can now be installed via requirements.txt
 
 **Fixes:**
-* updated bleach from 3.2.1 to 3.3.0 (fixes security issue)
+* fixed security issues
 
 **supported platforms:**
 * Windows (10)
