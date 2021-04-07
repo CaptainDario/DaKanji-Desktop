@@ -3,11 +3,15 @@
 ## v 1.2 - kaizen
 This release includes many tweaks and improvements.
 
+**Breaking Changes:**
+* if you run the app from source, pulling this release will remove the tflite model. Now you need to download the model from [its github repository.](https://github.com/CaptainDario/DaKanji-ML)
+
 **New Features:**
 * MacOS executable
 * the dictionary (URL) for character lookup can now be user defined
 * Added dark/light theme
 * show a copied to clipboard message
+* improved AI
 
 **Changes:**
 * changed background color
