@@ -42,11 +42,11 @@ class PredictionButton(QtCore.QObject):
             self.clipboard.setText(self.character, QClipboard.Selection)
         
     
-    @QtCore.Slot()
-    def button_long_pressed(self):
+    @QtCore.Slot(str)
+    def button_long_pressed(self, url):
         """ Opens the character in the dictionary of choice.
         """
 
         if(self.character != ""):
-            webbrowser.open("https://jisho.org/search/" + self.character + "%23kanji")
+            webbrowser.open(url.replace("%X%", self.character))
 
