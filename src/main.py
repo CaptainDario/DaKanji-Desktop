@@ -23,6 +23,6 @@ if __name__ == "__main__":
 
     # setup and load QML
     engine.load(pyinstaller.resource_path(os.path.join("ui", "main.qml")))
-    app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon_eye_only.ico"))))
+    app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon.ico"))))
 
     sys.exit(app.exec_())
