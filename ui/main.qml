@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.6
 import QtQuick.Controls 2.4
 import QtQuick.Window 2.2
 import QtQuick.Controls.Material 2.3
@@ -13,18 +13,167 @@ ApplicationWindow {
 
     Material.theme: Material.Dark
 
-	width: 640
+	width:  640 
 	height: 640
 
     visible: true
 
-    property int menu_button_size: 30 
+
+    property int drawer_width: 320 
+
+    // should the drawer be shown
+    property bool inPortrait: true 
+
+    // drawer label height
+    property int drawer_item_height: 40
+    
+    // margin between items from drawer
+    property int drawer_items_padding: 10
+
+    // the size of the buttons of the canvas menu
+    property int menu_button_size: 30
+
+
+    // the drawer for the settings
+    Drawer {
+        id: drawer
+
+        width: drawer_width
+        height: mainWindow.height
+
+        closePolicy: Popup.CloseOnPressOutside
+        modal: inPortrait 
+        interactive: inPortrait
+        visible: !inPortrait
+
+        // drawer background color
+        Rectangle {
+            anchors.fill: parent
+            color: "#2e2e2e"
+        }
+
+        // DaKanji banner
+        Image {
+            id: logo
+            width: drawer_width / 2
+            source: "../media/banner.png"
+            fillMode: implicitWidth > width ? Image.PreserveAspectFit : Image.Pad
+        }
+
+        // textfield to enter a custom dictionary url
+        TextField {
+            id: url
+
+            height: drawer_item_height
+            width: drawer_width - 11
+            x: 5
+            y: logo.height + drawer_item_height
+            
+            placeholderText: qsTr("dictionary URL")
+            text: qsTr(settings.dict)
+
+            onTextEdited: {
+                settings.dict = url.text
+            }
+        }
+
+        // select dark / light mode combo box
+        ComboBox{
+            id: modes
+
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 5
+            y: logo.height + 2*drawer_item_height + drawer_items_padding
+
+            model: ["dark mode", "light mode"]
+            currentIndex: settings.mode
+
+            background: Rectangle{
+                color: "#FFFFFF"
+            }
+
+            onCurrentIndexChanged: {
+                if(modes.currentIndex != settings.mode)
+                    settings.mode = modes.currentIndex
+                console.log(settings.mode)
+            }
+        }
+        
+        //text and background of the "invert presses" option
+        Rectangle{
+            
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 5
+            y: logo.height + 3*drawer_item_height + 2*drawer_items_padding
+
+            color: "#FFFFFF"
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    settings.invert_presses = !settings.invert_presses
+                    invert_presses = settings.invert_presses
+                    console.log(settings.invert_presses)
+                } 
+            }
+        }
+        Text{ 
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 15
+            y: logo.height + 3*drawer_item_height + 2*drawer_items_padding
+            
+            verticalAlignment: Text.AlignVCenter
+            text: "Invert long/short press behavior"
+            color: "black"
+        }
+
+        // the checkbox to invert the long / short presses
+        CheckBox{
+            id: invert_presses 
+
+            x: drawer_width - width
+            y: logo.height + 3*drawer_item_height + 2*drawer_items_padding
+
+            checked: settings.invert_presses
+
+            onToggled: {
+                settings.invert_presses = !settings.invert_presses 
+                console.log(settings.invert_presses)
+            }
+        }
+    }
 
     Rectangle {
 
         width: mainWindow.width + 1
         height: mainWindow.height + 1
         color: "#2e2e2e" 
+
+        // open drawer button
+        CustomMaterialButton{
+            x: 5 
+            y: 5
+
+            width : mainWindow.menu_button_size
+            height: mainWindow.menu_button_size
+
+            Image {
+                source: "hamburger.png"
+
+                x: 3
+                y: 3
+
+                width: parent.width - x*2
+                height: parent.height - y*2
+            }
+
+            onClicked:{
+                drawer.visible = true
+            }
+        }    
 
         //drawing aid BG image
         Image {
@@ -36,8 +185,6 @@ ApplicationWindow {
 
             width: parent.width / 100 * 50
             height: parent.height / 100 * 50
-
-            //anchors.centerIn: horizontalCenter
 
             source: "kanji_drawing_aid.png"
             sourceSize.height: 1024
@@ -72,7 +219,7 @@ ApplicationWindow {
                canvas.getContext("2d").reset()
                canvas.requestPaint() 
             }
-        }        
+        }
         //Undo last stroke button
         CustomMaterialButton{
             id: "button_undo"
@@ -127,7 +274,7 @@ ApplicationWindow {
                 //setup path
                 var ctx = getContext('2d')
                 ctx.strokeStyle = color
-                ctx.lineWidth = 2
+                ctx.lineWidth = 4
 
                 //paint
                 if(canvas.undoLastStroke === false && canvas.points.length > 0){
@@ -205,15 +352,29 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_1.button_pressed()
+
                     if(prediction_button_1.character != ""){
                         popup_1.open()
+                        popup_1_timer.start()
                     }
-                    popup_1_timer.start()
+                }
+                function long_press() {
+                    prediction_button_1.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_1.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
                 Popup {
                     id: popup_1
@@ -253,16 +414,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_2.button_pressed()
+
                     if(prediction_button_2.character != ""){
                         popup_2.open()
+                        popup_2_timer.start()
                     }
-                    popup_2_timer.start()
+                }
+                function long_press() {
+                    prediction_button_2.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_2.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_2
 
@@ -301,16 +477,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_3.button_pressed()
+
                     if(prediction_button_3.character != ""){
                         popup_3.open()
+                        popup_3_timer.start()
                     }
-                    popup_3_timer.start()
+                }
+                function long_press() {
+                    prediction_button_3.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_3.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_3
 
@@ -349,16 +540,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_4.button_pressed()
+
                     if(prediction_button_4.character != ""){
                         popup_4.open()
+                        popup_4_timer.start()
                     }
-                    popup_4_timer.start()
+                }
+                function long_press() {
+                    prediction_button_4.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_4.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_4
 
@@ -397,16 +603,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_5.button_pressed()
+
                     if(prediction_button_5.character != ""){
                         popup_5.open()
+                        popup_5_timer.start()
                     }
-                    popup_5_timer.start()
+                }
+                function long_press() {
+                    prediction_button_5.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_5.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_5
 
@@ -445,16 +666,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_6.button_pressed()
+
                     if(prediction_button_6.character != ""){
                         popup_6.open()
+                        popup_6_timer.start()
                     }
-                    popup_6_timer.start()
+                }
+                function long_press() {
+                    prediction_button_6.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_6.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_6
 
@@ -493,16 +729,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_7.button_pressed()
+
                     if(prediction_button_7.character != ""){
                         popup_7.open()
+                        popup_7_timer.start()
                     }
-                    popup_7_timer.start()
+                }
+                function long_press() {
+                    prediction_button_7.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_7.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_7
 
@@ -541,16 +792,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_8.button_pressed()
+
                     if(prediction_button_8.character != ""){
                         popup_8.open()
+                        popup_8_timer.start()
                     }
-                    popup_8_timer.start()
+                }
+                function long_press() {
+                    prediction_button_8.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_8.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_8
 
@@ -589,16 +855,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_9.button_pressed()
+
                     if(prediction_button_9.character != ""){
                         popup_9.open()
+                        popup_9_timer.start()
                     }
-                    popup_9_timer.start()
+                }
+                function long_press() {
+                    prediction_button_9.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_9.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_9
 
@@ -637,16 +918,31 @@ ApplicationWindow {
                 width: selection_grid.button_size 
                 height: selection_grid.button_size 
 
-                onClicked: { 
+                function press() {
                     prediction_button_10.button_pressed()
+
                     if(prediction_button_10.character != ""){
                         popup_10.open()
+                        popup_10_timer.start()
                     }
-                    popup_10_timer.start()
+                }
+                function long_press() {
+                    prediction_button_10.button_long_pressed(settings.dict)
+                }
+
+                onClicked: {
+                    if(!settings.invert_presses)
+                        press()
+                    else
+                        long_press()
                 }
                 onPressAndHold: {
-                    prediction_button_10.button_long_pressed()
+                    if(!settings.invert_presses)
+                        long_press()
+                    else
+                        press()
                 }
+
                 Popup {
                     id: popup_10
 

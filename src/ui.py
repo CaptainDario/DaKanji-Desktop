@@ -1,13 +1,15 @@
+from typing import Set
 import urllib.request
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 import PySide2
 from PySide2 import QtCore
 from PySide2.QtGui import QClipboard
 
 from prediction_button import PredictionButton
 from predictor import Predictor
+from settings import Settings
 
 
 
@@ -29,7 +31,9 @@ class Ui(QtCore.QObject):
 
     prediction_changed = QtCore.Signal(str)
 
-    def __init__(self, clipboard : QClipboard, context : PySide2.QtQml.QQmlContext) -> None:
+    def __init__(self, clipboard : QClipboard,
+                    context : PySide2.QtQml.QQmlContext,
+                    settings: Settings) -> None:
         QtCore.QObject.__init__(self)
         
         self.context         = context
@@ -37,6 +41,7 @@ class Ui(QtCore.QObject):
         self.predictor       = Predictor()
         self.prediction_btns = [PredictionButton(clipboard) for i in range(10)]
         self.clipboard       = clipboard
+        self.settings        = settings
 
         self.connect_py_and_qml()
 
@@ -45,10 +50,13 @@ class Ui(QtCore.QObject):
         """ Connect the python objects and attributes with QML.
         """
         
-        #connect the canvas
+        # connect the settings
+        self.context.setContextProperty("settings", self.settings)
+
+        # connect the canvas
         self.context.setContextProperty("ui", self)
         
-        #connect the PredictionButtons
+        # connect the PredictionButtons
         for i in range(self.pred_count):
             name = "prediction_button_" + str(i + 1)
             self.context.setContextProperty(name, self.prediction_btns[i])
@@ -74,6 +82,7 @@ class Ui(QtCore.QObject):
 
         # check that image is not empty
         if(image.getbbox()):
+            image = image.filter(ImageFilter.BLUR)
             image = image.resize(size=(64, 64), resample=Image.ANTIALIAS, reducing_gap=2.0)
 
             # convert image to np.array and make it grayscale
