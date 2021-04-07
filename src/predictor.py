@@ -1,8 +1,7 @@
 import os
-import pickle
+import ast
 
 import numpy as np
-import sklearn      # not directly accessed but loaded via pickle
 
 import tflite_runtime.interpreter as tflite
 
@@ -16,24 +15,24 @@ class Predictor():
         kanji_interpreter  (Interpreter) : The tf_lite interpreter which is used to predict characters
         input_details             (dict) : The input details of 'kanji_interpreter'.
         output_details            (dict) : The output details of 'kanji_interpreter'.
-        label_binarizer (LabelBinarizer) : Decodes one hot encoded output from the tf_lite model.
+        labels          (LabelBinarizer) : A list of all labels the CNN can recognize (ordered).
     """
 
     def __init__(self) -> None:
         self.kanji_interpreter = None
         self.input_details     = None
         self.output_details    = None
-        self.label_binarizer   = None
+        self.labels   = None
 
-        self.init_label_binarizer()
+        self.init_labels()
         self.init_tf_lite_model()
     
-    def init_label_binarizer(self):
-        """ Load the pickled LabelBinarizer from 'data'-folder.
+    def init_labels(self):
+        """ Load the list of labels which the CNN can recognize
         """
 
-        with open(resource_path(os.path.join("data", "labels")), "rb") as f:
-            self.label_binarizer = pickle.load(f)
+        with open(resource_path(os.path.join("data", "labels_python_list.txt")), "r", encoding="utf8") as f:
+            self.labels = ast.literal_eval(f.read())
 
     def init_tf_lite_model(self):
         """ Load the tf_lite model from the 'data'-folder.
@@ -69,7 +68,7 @@ class Predictor():
         # get the 'cnt_predictions' most confident predictions
         preds = []
         for i in range(cnt_predictions):
-            pred = self.label_binarizer.inverse_transform(out_np)
+            pred = self.labels[out_np.argmax()]
             preds.append(pred[0])
 
             # 'remove' this prediction from all
