@@ -94,9 +94,12 @@ ApplicationWindow {
             }
 
             onCurrentIndexChanged: {
-                if(modes.currentIndex != settings.mode)
+                if(modes.currentIndex != settings.mode){
                     settings.mode = modes.currentIndex
-                console.log(settings.mode)
+                    canvas.undoLastStroke = true
+                    canvas.getContext("2d").reset()
+                    canvas.requestPaint()
+                }
             }
         }
         
@@ -247,7 +250,6 @@ ApplicationWindow {
                 canvas.points.pop()
                 canvas.getContext("2d").reset()
                 canvas.requestPaint()
-
             }
         }
 
@@ -265,7 +267,7 @@ ApplicationWindow {
             // all points which have been drawn
             // [[all points of Line_0], [all points of Line_1]]
             property var points: []
-            //if the last stroke be removed
+            //if the last stroke was removed
             property var undoLastStroke: false
 
             onPaint: {
