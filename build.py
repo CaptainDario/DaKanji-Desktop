@@ -30,16 +30,17 @@ if __name__ == "__main__":
     name_folder = str(about.full_id) + "_folder"
     name_file   = str(about.full_id) + "_file"
 
-    activate_venv_cmd = ""
+    pyinstaller = ""
 
     print("Building on", platform.system(), "...")
     #build for WINDOWS
     if(platform.system() == "Windows"):
-        activate_venv_cmd = os.path.join(".venv_rel", "Scripts", "activate.bat")
+        pyinstaller = os.path.join(".venv_rel", "Scripts", "pyinstaller.exe")
 
         data =  "--add-data .\\ui;ui "
         data += "--add-data .\\data;data "
         data += "--add-data .\\icons;icons "
+        data += "--add-data .\\media\\banner.png;media "
 
         path = "--distpath=.\\build\\" + platform.system()
 
@@ -47,32 +48,36 @@ if __name__ == "__main__":
 
         additional = "--noconfirm --noconsole"
 
-        build_command_folder = " ".join(["pyinstaller", data, path, "--name=" + name_folder, "--clean", icon, additional, r".\src\main.py"])
-        build_command_file   = " ".join(["pyinstaller", data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, r".\src\main.py"])
+        build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, r".\src\main.py"])
+        build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, r".\src\main.py"])
      
         # --- build folder-exe
         print(build_command_folder)
-        subprocess.call(activate_venv_cmd + " && " + build_command_folder)
+        subprocess.call(build_command_folder)
         #remove spec
-        os.remove(name_folder + ".spec")
+        if(os.path.exists(name_folder + ".spec")):
+            os.remove(name_folder + ".spec")
         #remove temp folder
-        shutil.rmtree(os.path.join("build", name_folder))
+        if(os.path.exists(os.path.join("build", name_folder))):
+            shutil.rmtree(os.path.join("build", name_folder))
 
 
         # --- build onefile-exe
         print(build_command_file)
-        subprocess.call(activate_venv_cmd + " && " + build_command_file)
+        #subprocess.call(build_command_file)
         #remove spec
-        os.remove(name_file + ".spec")
+        if(os.path.exists(name_file + ".spec")):
+            os.remove(name_file + ".spec")
         #remove temp folder
-        shutil.rmtree(os.path.join("build", name_file))
+        if(os.path.exists(os.path.join("build", name_file))):
+            shutil.rmtree(os.path.join("build", name_file))
 
     elif(platform.system() == "Linux"):
-        activate_venv_cmd = ". " + os.path.join(".venv_rel", "bin", "activate")
+        activate_venv_cmd = ". " + os.path.join(".venv_rel", "bin", "pyinstaller")
 
         data =  "--add-data ./ui:ui "
         data += "--add-data ./data:data "
-        data += "--add-data ./icons:icons "
+        data += "--add-data ./icons/banner.png:icons/banner.png "
         # bug in pyinstaller 4.1 -> can/shoule be removed with next stable release
         data += "--add-data ./.venv_rel/lib/python3.8/site-packages/PySide2/Qt/plugins:./PySide2/plugins"
 
@@ -82,12 +87,12 @@ if __name__ == "__main__":
 
         additional = "--noconfirm --noconsole"
 
-        build_command_folder = " ".join(["pyinstaller", data, path, "--name=" + name_folder, "--clean", icon, additional, "./src/main.py"])
-        build_command_file   = " ".join(["pyinstaller", data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, "./src/main.py"])
+        build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, "./src/main.py"])
+        build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, "./src/main.py"])
             
         # --- build folder-exe
         print(build_command_folder)
-        subprocess.call(activate_venv_cmd + " && " + build_command_folder, shell=True)
+        subprocess.call(build_command_folder, shell=True)
         #remove spec
         os.remove(name_folder + ".spec")
         #remove temp folder
@@ -96,7 +101,7 @@ if __name__ == "__main__":
 
         # --- build onefile-exe
         print(build_command_file)
-        subprocess.call(activate_venv_cmd + " && " + build_command_file, shell=True)
+        subprocess.call(build_command_file, shell=True)
         #remove spec
         os.remove(name_file + ".spec")
         #remove temp folder
