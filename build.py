@@ -21,6 +21,29 @@ def subprocess_cmd(command):
     proc_stdout = process.communicate()[0].strip()
     print (proc_stdout)
 
+def run_folder_commands(build_command_folder, name_folder):
+
+    print(build_command_folder)
+    #subprocess.call(build_command_folder, shell=True)
+    #remove spec
+    if(os.path.exists(name_folder + ".spec")):
+        os.remove(name_folder + ".spec")
+    #remove temp folder
+    if(os.path.exists(os.path.join("build", name_folder))):
+        shutil.rmtree(os.path.join("build", name_folder))
+
+
+def run_file_command(build_command_file, name_file):
+
+    print(build_command_file)
+    subprocess.call(build_command_file, shell=True)
+    #remove spec
+    if(os.path.exists(name_file + ".spec")):
+        os.remove(name_file + ".spec")
+    #remove temp folder
+    if(os.path.exists(os.path.join("build", name_file))):
+        shutil.rmtree(os.path.join("build", name_file))
+
 
 if __name__ == "__main__":
     
@@ -31,6 +54,10 @@ if __name__ == "__main__":
     name_file   = str(about.full_id) + "_file"
 
     pyinstaller = ""
+
+    # make sure there is a build folder
+    if(not os.path.exists("build")):
+        os.mkdir("build")
 
     print("Building on", platform.system(), "...")
     #build for WINDOWS
@@ -51,33 +78,15 @@ if __name__ == "__main__":
         build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, r".\src\main.py"])
         build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, r".\src\main.py"])
      
-        # --- build folder-exe
-        print(build_command_folder)
-        subprocess.call(build_command_folder)
-        #remove spec
-        if(os.path.exists(name_folder + ".spec")):
-            os.remove(name_folder + ".spec")
-        #remove temp folder
-        if(os.path.exists(os.path.join("build", name_folder))):
-            shutil.rmtree(os.path.join("build", name_folder))
+        run_build_commands(build_command_file, build_command_folder, name_file, name_folder)
 
-
-        # --- build onefile-exe
-        print(build_command_file)
-        #subprocess.call(build_command_file)
-        #remove spec
-        if(os.path.exists(name_file + ".spec")):
-            os.remove(name_file + ".spec")
-        #remove temp folder
-        if(os.path.exists(os.path.join("build", name_file))):
-            shutil.rmtree(os.path.join("build", name_file))
 
     elif(platform.system() == "Linux"):
-        activate_venv_cmd = ". " + os.path.join(".venv_rel", "bin", "pyinstaller")
+        activate_venv_cmd =  os.path.join(".venv_rel", "bin", "pyinstaller")
 
         data =  "--add-data ./ui:ui "
         data += "--add-data ./data:data "
-        data += "--add-data ./icons/banner.png:icons/banner.png "
+        data += "--add-data ./media/banner.png:media "
         # bug in pyinstaller 4.1 -> can/shoule be removed with next stable release
         data += "--add-data ./.venv_rel/lib/python3.8/site-packages/PySide2/Qt/plugins:./PySide2/plugins"
 
@@ -90,24 +99,33 @@ if __name__ == "__main__":
         build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, "./src/main.py"])
         build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, "./src/main.py"])
             
-        # --- build folder-exe
-        print(build_command_folder)
-        subprocess.call(build_command_folder, shell=True)
-        #remove spec
-        os.remove(name_folder + ".spec")
-        #remove temp folder
-        shutil.rmtree(os.path.join("build", name_folder))
-
-
-        # --- build onefile-exe
-        print(build_command_file)
-        subprocess.call(build_command_file, shell=True)
-        #remove spec
-        os.remove(name_file + ".spec")
-        #remove temp folder
-        shutil.rmtree(os.path.join("build", name_file))
+        run_build_commands(build_command_file, build_command_folder, name_file, name_folder)
         
+    # MacOS
+    elif (platform.system() == "Darwin"):
+        pyinstaller = os.path.join(".venv_rel", "bin", "pyinstaller")
+
+        data = ""
+        data =  "--add-data ./ui:ui "
+        data += "--add-data ./data:data "
+        data += "--add-data ./media/banner.png:media "
+        # bug in pyinstaller 4.1 -> can/shoule be removed with next stable release
+        data += "--add-data ./.venv_rel/lib/python3.8/site-packages/PySide2/Qt/plugins:./PySide2/plugins"
+
+        path = "--distpath=./build/" + platform.system()
+
+        icon = "--icon=./icons/icon.ico"
+
+        additional = "--noconfirm --noconsole"
+
+        build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, "./src/main.py"])
+        build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", "--windowed", icon, additional, "./src/main.py"])
+            
+        run_file_command(build_command_file, name_file)
+
+
     else:
         print("OS on which you are trying to build is not configured.")
+        print("OS Name:", platform.system())
         print("Please add a build configuration and submit a pull request: " + about.pull_url)
     
