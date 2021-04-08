@@ -147,6 +147,34 @@ ApplicationWindow {
                 console.log(settings.invert_presses)
             }
         }
+        //text and background of the "how to use" label
+        Rectangle{
+            
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 5
+            y: mainWindow.height - (drawer_item_height + drawer_items_padding) 
+
+            color: "#FFFFFF"
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    Qt.openUrlExternally("https://github.com/CaptainDario/DaKanji-Desktop#usage")
+                } 
+            }
+        }
+        Text{ 
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 15
+            y: mainWindow.height - (drawer_item_height + drawer_items_padding) 
+            
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            text: "How to use this?"
+            color: "black"
+        }
     }
 
     Rectangle {
