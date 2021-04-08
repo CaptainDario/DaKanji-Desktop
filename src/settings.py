@@ -3,6 +3,8 @@ import tempfile
 
 from PySide2 import QtCore
 
+import about
+
 
 class Settings(QtCore.QObject):
     """
@@ -12,6 +14,7 @@ class Settings(QtCore.QObject):
     dict_changed = QtCore.Signal(str)
     mode_changed = QtCore.Signal(int)
     invert_presses_changed = QtCore.Signal(bool)
+    version_changed = QtCore.Signal(str)
 
 
     def __init__(self) -> None:
@@ -20,6 +23,7 @@ class Settings(QtCore.QObject):
         self._dict = "https://jisho.org/search/%X%"
         self._mode = 0
         self._invert_presses = False 
+        self._version = about.version
 
     def __str__(self):
         return self.dict + "\n" + str(self.mode) + "\n" + str(self.invert_presses)
@@ -53,6 +57,16 @@ class Settings(QtCore.QObject):
     def invert_presses(self, invert_presses):
         self._invert_presses = invert_presses
         self.mode_changed.emit(invert_presses)
+        self.save()
+    
+    @QtCore.Property(str, notify=version_changed)
+    def version(self):
+        return self._version
+
+    @version.setter
+    def version(self, version):
+        self._version = version
+        self.version_changed.emit(version)
         self.save()
 
 
