@@ -71,7 +71,7 @@ The Machine learning part of this project can be found in [this repository](http
 
 ### Packaging the application
 #### PyInstaller
-For freezing the app with PyInstaller you have to run the 'build'-script in the main folder (make sure pyinstaller is installed because it is not included in the `requirements.txt`):
+For freezing the app with PyInstaller you have to run the 'build'-script in the main folder (make sure PyInstaller is installed because it is not included in the `requirements.txt`):
 ```
 .venv_rel\Scripts\python.exe build.py
 ```
