@@ -6,12 +6,12 @@ import QtQuick.Controls.Material 2.3
 
 ApplicationWindow {
 	id: mainWindow
-    title: "DaKanjiRecognizer - v1.1"
+    title: "DaKanjiRecognizer - v1.2"
 
     minimumWidth : 350
     minimumHeight: 350
 
-    Material.theme: Material.Dark
+    Material.theme: settings.mode == 0 ? Material.Dark : Material.light
 
 	width:  640 
 	height: 640
@@ -49,7 +49,7 @@ ApplicationWindow {
         // drawer background color
         Rectangle {
             anchors.fill: parent
-            color: "#2e2e2e"
+            color: settings.mode == 0 ? "#2e2e2e" : "white"
         }
 
         // DaKanji banner
@@ -150,7 +150,7 @@ ApplicationWindow {
 
         width: mainWindow.width + 1
         height: mainWindow.height + 1
-        color: "#2e2e2e" 
+        color: settings.mode == 0 ? "#2e2e2e" : "white" 
 
         // open drawer button
         CustomMaterialButton{
@@ -161,7 +161,7 @@ ApplicationWindow {
             height: mainWindow.menu_button_size
 
             Image {
-                source: "hamburger.png"
+                source: settings.mode == 0 ? "hamburger_w.png" : "hamburger_b.png"
 
                 x: 3
                 y: 3
@@ -186,7 +186,7 @@ ApplicationWindow {
             width: parent.width / 100 * 50
             height: parent.height / 100 * 50
 
-            source: "kanji_drawing_aid.png"
+            source: settings.mode == 0 ? "kanji_drawing_aid_w.png" : "kanji_drawing_aid_b.png"
             sourceSize.height: 1024
             sourceSize.width: 1024
             fillMode: Image.PreserveAspectFit
@@ -205,7 +205,7 @@ ApplicationWindow {
             padding: 0
 
             Image {
-                source: "clear.png"
+                source: settings.mode == 0 ? "clear_w.png" : "clear_b.png"
 
                 x: 3
                 y: 3
@@ -233,7 +233,7 @@ ApplicationWindow {
             padding: 10
 
             Image {
-                source: "undo.png"
+                source: settings.mode == 0 ? "undo_w.png" : "undo_b.png"
 
                 x: 3
                 y: 3
@@ -262,8 +262,6 @@ ApplicationWindow {
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 3 - height / 2
 
-            property var color: "white"
-
             // all points which have been drawn
             // [[all points of Line_0], [all points of Line_1]]
             property var points: []
@@ -273,7 +271,7 @@ ApplicationWindow {
             onPaint: {
                 //setup path
                 var ctx = getContext('2d')
-                ctx.strokeStyle = color
+                ctx.strokeStyle = settings.mode == 0 ? "white" : "black"
                 ctx.lineWidth = 4
 
                 //paint
