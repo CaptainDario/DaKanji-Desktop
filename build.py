@@ -24,7 +24,7 @@ def subprocess_cmd(command):
 def run_folder_commands(build_command_folder, name_folder):
 
     print(build_command_folder)
-    #subprocess.call(build_command_folder, shell=True)
+    subprocess.call(build_command_folder, shell=True)
     #remove spec
     if(os.path.exists(name_folder + ".spec")):
         os.remove(name_folder + ".spec")
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, r".\src\main.py"])
         build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, r".\src\main.py"])
      
-        run_build_commands(build_command_file, build_command_folder, name_file, name_folder)
+        run_folder_commands(build_command_folder, name_folder)
 
 
     elif(platform.system() == "Linux"):
