@@ -82,7 +82,6 @@ class Settings(QtCore.QObject):
             os.mkdir(temp_path)
 
         with open(settings_file, "w+") as f:
-            print(str(self))
             f.write(str(self))
 
     def load(self):
