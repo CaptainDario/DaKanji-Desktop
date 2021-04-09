@@ -20,7 +20,7 @@ class Settings(QtCore.QObject):
     def __init__(self) -> None:
         QtCore.QObject.__init__(self)
         
-        self._dict = "https://jisho.org/search/%X%"
+        self._dict = r"https://jisho.org/search/%X%"
         self._mode = 0
         self._invert_presses = False 
         self._version = about.version
