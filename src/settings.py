@@ -8,7 +8,7 @@ import about
 
 class Settings(QtCore.QObject):
     """
-    testse
+    Represents the user's settings. 
     """
 
     dict_changed = QtCore.Signal(str)
@@ -20,7 +20,7 @@ class Settings(QtCore.QObject):
     def __init__(self) -> None:
         QtCore.QObject.__init__(self)
         
-        self._dict = "https://jisho.org/search/%X%"
+        self._dict = r"https://jisho.org/search/%X%"
         self._mode = 0
         self._invert_presses = False 
         self._version = about.version
@@ -77,11 +77,12 @@ class Settings(QtCore.QObject):
         temp_path = os.path.join(tempfile.gettempdir(), "DaKanji")
         settings_file = os.path.join(temp_path, "settings.dk")
 
-        # if there is on directory for DaKanji in the temp folder create one
+        # if there is no directory for DaKanji in the temp folder create one
         if(not os.path.isdir(temp_path)):
             os.mkdir(temp_path)
 
         with open(settings_file, "w+") as f:
+            print(str(self))
             f.write(str(self))
 
     def load(self):
@@ -97,11 +98,12 @@ class Settings(QtCore.QObject):
         # if no settings file exists create one
         if(not os.path.exists(settings_file)):
             self.save()
+            return
 
         # load the settings from file
         with open(settings_file, "r+") as f:
             lines = f.readlines()
             self.dict = lines[0].rstrip("\n")
             self.mode = int(lines[1].rstrip("\n"))
-            self.invert_presses = bool(lines[2].rstrip("\n"))
+            self.invert_presses = lines[2].rstrip("\n") == "True"
 

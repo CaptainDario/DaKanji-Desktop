@@ -417,6 +417,7 @@ ApplicationWindow {
 
                     contentItem: Text {
                         text: "Copied " + prediction_button_1.character + " to clipboard"
+                        verticalAlignment: Text.AlignVCenter
                     }
                     enter: Transition {
                         NumberAnimation { 
