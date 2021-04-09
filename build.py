@@ -53,7 +53,7 @@ if __name__ == "__main__":
      
         # --- build folder-exe
         print(build_command_folder)
-        subprocess.call(build_command_folder)
+        subprocess.call(build_command_folder, shell=True)
         #remove spec
         if(os.path.exists(name_folder + ".spec")):
             os.remove(name_folder + ".spec")
