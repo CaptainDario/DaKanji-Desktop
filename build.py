@@ -21,7 +21,7 @@ def subprocess_cmd(command):
     proc_stdout = process.communicate()[0].strip()
     print (proc_stdout)
 
-def run_folder_commands(build_command_folder, name_folder):
+def run_folder_command(build_command_folder, name_folder):
 
     print(build_command_folder)
     subprocess.call(build_command_folder, shell=True)
@@ -78,11 +78,11 @@ if __name__ == "__main__":
         build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, r".\src\main.py"])
         build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, r".\src\main.py"])
      
-        run_folder_commands(build_command_folder, name_folder)
+        run_folder_command(build_command_folder, name_folder)
 
 
     elif(platform.system() == "Linux"):
-        activate_venv_cmd =  os.path.join(".venv_rel", "bin", "pyinstaller")
+        pyinstaller =  os.path.join(".venv_rel", "bin", "pyinstaller")
 
         data =  "--add-data ./ui:ui "
         data += "--add-data ./data:data "
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, "./src/main.py"])
         build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, "./src/main.py"])
             
-        run_build_commands(build_command_file, build_command_folder, name_file, name_folder)
+        run_file_command(build_command_file, build_command_folder, name_file, name_folder)
         
     # MacOS
     elif (platform.system() == "Darwin"):
