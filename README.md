@@ -18,12 +18,20 @@ The mobile version can be found [here.](https://github.com/CaptainDario/DaKanji-
 
 ## Getting started
 
-### Running the executable
-This is the recommended way of running the application. <br/>
-You only have to head over to the [releases section](https://github.com/CaptainDario/DaKanji-desktop/releases) and download the latest release.
-Unzip it and run the DaKanji executable inside the folder.<br/>
+### Running / installing the executable
+This is the recommended way of using the application. <br/>
 
-That's it!
+#### Windows
+Head over to the [releases section](https://github.com/CaptainDario/DaKanji-desktop/releases) and download the latest release.
+The easiest way of using the app is from the Microsoft Store.
+It is easy to install, has a fast startup and you can get it [here]
+But you can also:
+* Use the `DaKanji_win_v1.2_portable.zip` (portable version) it is only one file and can be executed directly but has a slow startup. 
+* Use the `DaKanji-win_v1.2-setup.exe` (installer) installs the app and has a fast startup.
+
+#### Ubuntu
+
+#### MacOS
 
 ### Running from source
 
@@ -77,9 +85,12 @@ For freezing the app with PyInstaller you have to run the 'build'-script in the 
 ```
 The script automatically detects the platform and outputs an executable for the system.
 
-#### Windows Store Specific
-To publish the application in the Microsoft store it needs to be in the .msix format.
-To do this first the app needs to be converted from the PyInstaller executable to an .exe installer. The build script assumes that the `ISCC.exe` of the Inno Setup Compiler is in the path.
+#### Windows Specific
+To publish the application to the Microsoft store it needs to be in the .msix format.
+To do this first the app needs to be converted from the PyInstaller executable to an .exe installer (see PyInstaller section).<br/>
+After this a setup-exe needs to be created.
+For this `Inno Setup Compiler` was used.
+The `create_windows_installer.iss` needs to be run with it and it will create `build\Windows\DaKanji-setup.exe`.<br/>
 Now with the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) a .msix can be created.
 
 
@@ -95,6 +106,6 @@ sudo apt-get install -y libxcb-xinerama0
 ## Credits
   
 * Icons were taken from the [material icon set](https://material.io/resources/icons/?style=baseline).
-* design and UI: Massive shout out to [Ellina](https://github.com/nurellina)! Without your help the app would not look and feel half as good as it does now.
+* design, UI and MacOS version: Massive shout out to [Ellina](https://github.com/nurellina)! Without your help the app would not look and feel half as good as it does now.
 * icon/banner: 
   * Thanks "Buddha, with kudos to 2ch/fl/ and HatNyan" for helping with the icon design and making the banner. Also thank you [Adrian Jordanov](https://www.1001fonts.com/theater-font.html) for the banner font.
