@@ -16,7 +16,7 @@ confinement: devmode
 
 
 parts:
-  test-offlineimap:
+  dakanji:
     plugin: python
     python-version: python3
     source: .
@@ -25,4 +25,4 @@ parts:
 
 apps:
   dakanji:
-    command: bin/dakanji
+    command: dakanji
