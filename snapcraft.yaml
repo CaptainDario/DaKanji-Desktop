@@ -22,4 +22,4 @@ parts:
 
 apps:
   dakanji:
-    command: bin/dakanji
+    command: src/dakanji
