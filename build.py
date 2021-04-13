@@ -99,7 +99,7 @@ if __name__ == "__main__":
         build_command_folder = " ".join([pyinstaller, data, path, "--name=" + name_folder, "--clean", icon, additional, "./src/main.py"])
         build_command_file   = " ".join([pyinstaller, data, path, "--name=" + name_file, "--clean", "--onefile", icon, additional, "./src/main.py"])
             
-        run_file_command(build_command_file, build_command_folder, name_file, name_folder)
+        run_file_command(build_command_file, name_file)
         
     # MacOS
     elif (platform.system() == "Darwin"):

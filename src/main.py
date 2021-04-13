@@ -11,7 +11,7 @@ from settings import Settings
 
 
 
-if __name__ == "__main__":
+def run_app():
 
     # init app
     app = QApplication(sys.argv)
@@ -30,3 +30,7 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon.ico"))))
 
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    run_app()
