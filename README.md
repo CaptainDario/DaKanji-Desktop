@@ -1,5 +1,14 @@
 # DaKanji-Desktop
-<img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="60%"/>
+<img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="50%"/>
+<table>
+  <tr>
+  <a href='//www.microsoft.com/store/apps/9n08051t2xtv?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='English badge' width="150"/></a>
+   <tr/>
+   <tr>
+
+   <tr/>
+<table/>
+
 
 ## What is this?
 
