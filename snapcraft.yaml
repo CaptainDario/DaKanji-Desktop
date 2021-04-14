@@ -1,17 +1,28 @@
 name: dakanji # you probably want to 'snapcraft register <name>'
 base: core20 # the base snap is the execution environment for this snap
 version: '1.2' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+summary: Draw a kanji with your mouse and open it in your dictionary of choice.
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  Did you ever try to read a Japanese text but did not know how to read some Kanji? This app can help you with exactly that.
+  Draw a Kanji and the app will convert it to a digital character.
+  You can than open that character in a dictionary of your choice or use it somewhere else.
+
+  This app works completely offline and no internet connection is needed for recognizing the characters.
+
+  Features:
+  * Recognize Kanji characters offline
+  * Use a web dictionary to translate characters
 
 grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 parts:
+  copy-src:
+    plugin: dump
+    source: ./src
+    organize: 
+      "*" : src/
+
   dakanji:
     source: .
     plugin: python
@@ -19,7 +30,26 @@ parts:
     stage-packages:
     - libfreetype6
     - libpng16-16
+    - libnss3
+    - libxcomposite1
+    - libxcursor1
+    - libxtst6
+    - libxrandr2
+    - libasound2
+    - libglu1-mesa
+    - libgles2-mesa
+    - fontconfig
+    - libxkbcommon0
+    - libxkbcommon-x11-0
+    - libxi6
+    - libegl1
+    - shared-mime-info
+    - libgdk-pixbuf2.0-0
+    - locales-all
+    - libxslt1.1
+    - xfonts-base
+    - xfonts-scalable  
 
 apps:
-  dakanji:
+  dakanji:  
     command: src/dakanji

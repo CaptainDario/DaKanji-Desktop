@@ -13,14 +13,14 @@ from settings import Settings
 
 def run_app():
 
+    set = Settings()
+    set.load() 
+
     # init app
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
     clip = app.clipboard()
-
-    set = Settings()
-    set.load() 
 
     # connect QML and python
     ui = Ui(clip, engine.rootContext(), set)

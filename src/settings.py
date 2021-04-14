@@ -26,7 +26,7 @@ class Settings(QtCore.QObject):
         self._version = about.version
 
     def __str__(self):
-        return self.dict + "\n" + str(self.mode) + "\n" + str(self.invert_presses)
+        return self._dict + "\n" + str(self._mode) + "\n" + str(self._invert_presses)
 
 
     @QtCore.Property(str, notify=dict_changed)
@@ -102,7 +102,10 @@ class Settings(QtCore.QObject):
         # load the settings from file
         with open(settings_file, "r+") as f:
             lines = f.readlines()
-            self.dict = lines[0].rstrip("\n")
-            self.mode = int(lines[1].rstrip("\n"))
-            self.invert_presses = lines[2].rstrip("\n") == "True"
+            print(settings_file)
+
+            if(len(lines) > 2):
+                self.dict = lines[0].rstrip("\n")
+                self.mode = int(lines[1].rstrip("\n"))
+                self.invert_presses = lines[2].rstrip("\n") == "True"
 
