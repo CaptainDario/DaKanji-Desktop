@@ -18,25 +18,23 @@ The mobile version can be found [here.](https://github.com/CaptainDario/DaKanji-
 
 ## Getting started
 
-### Running / installing the executable
+### Running / installing the app
 This is the recommended way of using the application. <br/>
 
 #### Windows
-Head over to the [releases section](https://github.com/CaptainDario/DaKanji-desktop/releases) and download the latest release.
-The easiest way of using the app is from the Microsoft Store.
-It is easy to install, has a fast startup and you can get it [here]
-But you can also:
-* Use the `DaKanji_win_v1.2_portable.zip` (portable version) it is only one file and can be executed directly but has a slow startup. 
-* Use the `DaKanji-win_v1.2-setup.exe` (installer) installs the app and has a fast startup.
+The easiest way of using the app is from the [Microsoft Store](https://www.microsoft.com/de-de/p/dakanji/9n08051t2xtv?cid=storebadge&ocid=badge&rtc=1&activetab=pivot:overviewtab). It is easy to install and has a fast startup.
 
-#### Ubuntu
+But you can also use the [DaKanji_win_vx.x_portable.zip](https://github.com/CaptainDario/DaKanji-Desktop/releases) it is only one file and can be executed directly. But it has a much slower startup.
+
+#### Ubuntu 20.04
+Download the latest release [here](https://github.com/CaptainDario/DaKanji-Desktop/releases) and just run it.
 
 #### MacOS
+Download the latest release [here](https://github.com/CaptainDario/DaKanji-Desktop/releases) and put it in you `applications`-folder.
 
 ### Running from source
 
 **Note: Windows (10), Linux (Ubuntu 20.4) and MacOS are currently supported.**
-**If you want to use this app on a different platform try running it from source.**
 
 You can install all packages from the 'requirements.txt' (it is recommended to do this in a separate environment):
 
@@ -44,7 +42,7 @@ You can install all packages from the 'requirements.txt' (it is recommended to d
 python -m pip install -r requirements.txt
 ```
 
-Now the tensorflow lite models and the matching labels need to be downloaded and placed in the `data` folder.
+Now the tensorflow lite models need to be downloaded and placed in the `data` folder.
 They are available in the [DaKanji-ML repo.](https://github.com/CaptainDario/DaKanji-ML/releases)<br/>
 Finally you should be able to run the application with:
 
@@ -54,13 +52,15 @@ python .\src\main.py
 
 ## Usage
 Draw a character and the app tries to classify it.
-The predictions can be copied by clicking on the buttons.<br/> 
+The predictions can be copied to the system clipboard by clicking on the buttons.<br/> 
 
+A long press will open the predited character in a web dictionary.
 On the settings page the URL of a dictionary can be entered (default is [jisho](jisho.org)).<br/>
 
-**How to get the URL:**
-The app will replace a placeholder in the URL with the predicted character.
-This placeholder is: %X% <br/> 
+**How to set the URL:**
+The app will replace a placeholder in the URL with the predicted character. <br/>
+This placeholder is: %X%
+
 Example:<br/>
 The predicted character is: '口'
  and you want to open it on 'jisho.org'.
@@ -73,7 +73,7 @@ When long pressing a button the prediction will be opened in this dictionary.
 
 ## Development Notes
 
-Python 3.8 with Qt (PySide2) were used for development.
+Python 3.8 with Qt (PySide2) was used for development.
 See "running from source" for setting up the environment.<br/>
 The Machine learning part of this project can be found in [this repository](https://github.com/CaptainDario/DaKanji-ML).
 
@@ -90,7 +90,7 @@ To publish the application to the Microsoft store it needs to be in the .msix fo
 To do this first the app needs to be converted from the PyInstaller executable to an .exe installer (see PyInstaller section).<br/>
 After this a setup-exe needs to be created.
 For this `Inno Setup Compiler` was used.
-The `create_windows_installer.iss` needs to be run with it and it will create `build\Windows\DaKanji-setup.exe`.<br/>
+The `create_windows_installer.iss` contains all definitions for `Inno` to create `build\Windows\DaKanji-setup.exe`.<br/>
 Now with the [MSIX packaging tool](https://docs.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview) a .msix can be created.
 
 
@@ -105,7 +105,7 @@ sudo apt-get install -y libxcb-xinerama0
 
 ## Credits
   
-* Icons were taken from the [material icon set](https://material.io/resources/icons/?style=baseline).
 * design, UI and MacOS version: Massive shout out to [Ellina](https://github.com/nurellina)! Without your help the app would not look and feel half as good as it does now.
+* Icons were taken from the [material icon set](https://material.io/resources/icons/?style=baseline).
 * icon/banner: 
   * Thanks "Buddha, with kudos to 2ch/fl/ and HatNyan" for helping with the icon design and making the banner. Also thank you [Adrian Jordanov](https://www.1001fonts.com/theater-font.html) for the banner font.
