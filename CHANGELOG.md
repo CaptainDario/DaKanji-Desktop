@@ -20,7 +20,9 @@ This release includes many tweaks and improvements.
 * Added LICENSE
 * drastically reduced dependencies
 * All packages can now be installed via requirements.txt
-* installer for windows and Microsoft store release
+* installer for windows 
+* Microsoft store and Snap store release
+
 
 **Fixes:**
 * fixed security issues
@@ -28,7 +30,7 @@ This release includes many tweaks and improvements.
 **supported platforms:**
 * Windows (10)
 * Linux (Ubuntu 20.4)
-* MacOS
+* MacOS (Big Sur)
 
 -------------------------------------------------------------
 ## v 1.1 - jisho

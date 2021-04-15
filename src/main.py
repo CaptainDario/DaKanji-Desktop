@@ -11,16 +11,16 @@ from settings import Settings
 
 
 
-if __name__ == "__main__":
+def run_app():
+
+    set = Settings()
+    set.load() 
 
     # init app
     app = QApplication(sys.argv)
     engine = QQmlApplicationEngine()
 
     clip = app.clipboard()
-
-    set = Settings()
-    set.load() 
 
     # connect QML and python
     ui = Ui(clip, engine.rootContext(), set)
@@ -30,3 +30,7 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon(pyinstaller.resource_path(os.path.join("icons", "icon.ico"))))
 
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    run_app()

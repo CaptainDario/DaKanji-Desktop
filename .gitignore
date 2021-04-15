@@ -152,3 +152,6 @@ model/tf/kanji_only/float16/error.txt
 *.hdf5
 # tf lite models
 *.tflite
+
+# snaps
+*.snap

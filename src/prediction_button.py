@@ -1,4 +1,5 @@
 import webbrowser
+import urllib
 
 from PySide2 import QtCore
 from PySide2.QtGui import QClipboard
@@ -48,5 +49,6 @@ class PredictionButton(QtCore.QObject):
         """
 
         if(self.character != ""):
-            webbrowser.open(url.replace("%X%", self.character))
+            url = urllib.parse.quote_plus(url.replace(r"%X%", self.character), safe='/:?=&')
+            webbrowser.open(url)
 

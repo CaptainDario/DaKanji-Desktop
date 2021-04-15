@@ -6,7 +6,7 @@ import QtQuick.Controls.Material 2.3
 
 ApplicationWindow {
 	id: mainWindow
-    title: "DaKanjiRecognizer - v1.2"
+    title: "DaKanji - v" + qsTr(settings.version)
 
     minimumWidth : 350
     minimumHeight: 350
@@ -94,9 +94,12 @@ ApplicationWindow {
             }
 
             onCurrentIndexChanged: {
-                if(modes.currentIndex != settings.mode)
+                if(modes.currentIndex != settings.mode){
                     settings.mode = modes.currentIndex
-                console.log(settings.mode)
+                    canvas.undoLastStroke = true
+                    canvas.getContext("2d").reset()
+                    canvas.requestPaint()
+                }
             }
         }
         
@@ -115,7 +118,6 @@ ApplicationWindow {
                 onClicked: {
                     settings.invert_presses = !settings.invert_presses
                     invert_presses = settings.invert_presses
-                    console.log(settings.invert_presses)
                 } 
             }
         }
@@ -140,9 +142,36 @@ ApplicationWindow {
             checked: settings.invert_presses
 
             onToggled: {
-                settings.invert_presses = !settings.invert_presses 
-                console.log(settings.invert_presses)
+                settings.invert_presses = !settings.invert_presses
             }
+        }
+        //text and background of the "how to use" label
+        Rectangle{
+            
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 5
+            y: mainWindow.height - (drawer_item_height + drawer_items_padding) 
+
+            color: "#FFFFFF"
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    Qt.openUrlExternally("https://github.com/CaptainDario/DaKanji-Desktop#usage")
+                } 
+            }
+        }
+        Text{ 
+            height: drawer_item_height
+            width : drawer_width - 11
+            x: 15
+            y: mainWindow.height - (drawer_item_height + drawer_items_padding) 
+            
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            text: "How to use this?"
+            color: "black"
         }
     }
 
@@ -247,7 +276,6 @@ ApplicationWindow {
                 canvas.points.pop()
                 canvas.getContext("2d").reset()
                 canvas.requestPaint()
-
             }
         }
 
@@ -265,7 +293,7 @@ ApplicationWindow {
             // all points which have been drawn
             // [[all points of Line_0], [all points of Line_1]]
             property var points: []
-            //if the last stroke be removed
+            //if the last stroke was removed
             property var undoLastStroke: false
 
             onPaint: {
@@ -387,6 +415,7 @@ ApplicationWindow {
 
                     contentItem: Text {
                         text: "Copied " + prediction_button_1.character + " to clipboard"
+                        verticalAlignment: Text.AlignVCenter
                     }
                     enter: Transition {
                         NumberAnimation { 
