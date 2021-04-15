@@ -20,12 +20,11 @@ This release includes many tweaks and improvements.
 * Added LICENSE
 * drastically reduced dependencies
 * All packages can now be installed via requirements.txt
-* installer for windows 
-* Microsoft store and Snap store release
+* Microsoft store
 
 
 **Fixes:**
-* fixed security issues
+* fixed security issues with outdated packages
 
 **supported platforms:**
 * Windows (10)
