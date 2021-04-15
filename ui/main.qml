@@ -118,7 +118,6 @@ ApplicationWindow {
                 onClicked: {
                     settings.invert_presses = !settings.invert_presses
                     invert_presses = settings.invert_presses
-                    console.log(settings.invert_presses)
                 } 
             }
         }
@@ -143,8 +142,7 @@ ApplicationWindow {
             checked: settings.invert_presses
 
             onToggled: {
-                settings.invert_presses = !settings.invert_presses 
-                console.log(settings.invert_presses)
+                settings.invert_presses = !settings.invert_presses
             }
         }
         //text and background of the "how to use" label

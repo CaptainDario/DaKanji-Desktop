@@ -102,7 +102,6 @@ class Settings(QtCore.QObject):
         # load the settings from file
         with open(settings_file, "r+") as f:
             lines = f.readlines()
-            print(settings_file)
 
             if(len(lines) > 2):
                 self.dict = lines[0].rstrip("\n")

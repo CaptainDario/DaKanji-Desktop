@@ -50,6 +50,5 @@ class PredictionButton(QtCore.QObject):
 
         if(self.character != ""):
             url = urllib.parse.quote_plus(url.replace(r"%X%", self.character), safe='/:?=&')
-            print(url)
             webbrowser.open(url)
 
