@@ -1,5 +1,3 @@
-# list of hidden imports for pyinstaller
-from scipy.spatial.transform import _rotation_groups
 
 #normal packages
 import os, sys
