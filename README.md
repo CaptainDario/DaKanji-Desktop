@@ -2,7 +2,7 @@
 <img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="40%"/>
 <table>
   <tr>
-  <a href='//www.microsoft.com/store/apps/9n08051t2xtv?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='English badge' width="20%"/></a>
+  <a href='//www.microsoft.com/store/apps/9n08051t2xtv?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='English badge' width="15%"/></a>
    <tr/>
    <tr>
 
