@@ -1,3 +1,8 @@
+# Important!
+
+Because I reimplmented DaKanji in dart and flutter this repository will not be updated anymore.
+All new releases for DaKanji will be published [here](https://github.com/CaptainDario/DaKanji-Mobile).
+
 # DaKanji-Desktop
 <img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="40%"/>
 <table>
