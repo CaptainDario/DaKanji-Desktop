@@ -119,7 +119,7 @@ sudo apt-get install -y libxcb-xinerama0
 
 ## Credits
   
-* design, UI and MacOS version: Massive shout out to [Ellina](https://github.com/nurellina)! Without your help the app would not look and feel half as good as it does now.
+* design, UI and MacOS version: Shout out to nurellina Without your help the app would not look and feel half as good as it does now.
 * Icons were taken from the [material icon set](https://material.io/resources/icons/?style=baseline).
 * icon/banner: 
   * Thanks "Buddha, with kudos to 2ch/fl/ and HatNyan" for helping with the icon design and making the banner. Also thank you [Adrian Jordanov](https://www.1001fonts.com/theater-font.html) for the banner font.
