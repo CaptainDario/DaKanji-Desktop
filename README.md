@@ -1,7 +1,7 @@
 # Important!
 
-Because I reimplmented DaKanji in dart and flutter this repository will not be updated anymore.
-All new releases for DaKanji will be published [here](https://github.com/CaptainDario/DaKanji-Mobile).
+I reimplmented DaKanji in dart and flutter therefore this repository will not be updated anymore.
+All new releases for DaKanji will be published [in this repo](https://github.com/CaptainDario/DaKanji) which merges the desktop and the mobile version.
 
 # DaKanji-Desktop
 <img src="./media/banner.png" style="display:block;margin-left:auto;margin-right:auto;" width="40%"/>
@@ -119,7 +119,7 @@ sudo apt-get install -y libxcb-xinerama0
 
 ## Credits
   
-* design, UI and MacOS version: Shout out to nurellina Without your help the app would not look and feel half as good as it does now.
+* design, UI and MacOS version: Massive shout out to nurellina Without your help the app would not look and feel half as good as it does now.
 * Icons were taken from the [material icon set](https://material.io/resources/icons/?style=baseline).
 * icon/banner: 
   * Thanks "Buddha, with kudos to 2ch/fl/ and HatNyan" for helping with the icon design and making the banner. Also thank you [Adrian Jordanov](https://www.1001fonts.com/theater-font.html) for the banner font.
